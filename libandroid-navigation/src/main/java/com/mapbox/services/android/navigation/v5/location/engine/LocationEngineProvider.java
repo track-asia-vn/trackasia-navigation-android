@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.mapbox.mapboxsdk.location.engine.LocationEngine;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineProxy;
-import com.mapbox.mapboxsdk.location.engine.MapboxFusedLocationEngineImpl;
+import com.trackasia.android.location.engine.LocationEngine;
+import com.trackasia.android.location.engine.LocationEngineProxy;
+import com.trackasia.android.location.engine.MapboxFusedLocationEngineImpl;
 
 
 /**

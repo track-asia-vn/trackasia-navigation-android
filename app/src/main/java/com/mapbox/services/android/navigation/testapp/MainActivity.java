@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mapbox.mapboxsdk.location.permissions.PermissionsListener;
-import com.mapbox.mapboxsdk.location.permissions.PermissionsManager;
+import com.trackasia.android.location.permissions.PermissionsListener;
+import com.trackasia.android.location.permissions.PermissionsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
             getString(R.string.title_navigation_ui),
             getString(R.string.description_navigation_ui),
             NavigationUIActivity.class
+        ));
+        list.add(new SampleItem(
+            getString(R.string.title_snap_to_route),
+            getString(R.string.description_snap_to_route),
+            SnapToRouteNavigationActivity.class
         ));
         RecyclerView.Adapter adapter = new MainAdapter(list);
         recyclerView.setAdapter(adapter);

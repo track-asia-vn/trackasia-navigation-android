@@ -9,10 +9,10 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.Icon;
-import com.mapbox.mapboxsdk.annotations.IconFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.trackasia.android.Trackasia;
+import com.trackasia.android.annotations.Icon;
+import com.trackasia.android.annotations.IconFactory;
+import com.trackasia.android.geometry.LatLng;
 
 import java.util.Random;
 

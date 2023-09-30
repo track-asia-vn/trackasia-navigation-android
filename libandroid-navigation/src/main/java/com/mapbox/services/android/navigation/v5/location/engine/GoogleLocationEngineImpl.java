@@ -18,10 +18,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineImpl;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineRequest;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
+import com.trackasia.android.location.engine.LocationEngineCallback;
+import com.trackasia.android.location.engine.LocationEngineImpl;
+import com.trackasia.android.location.engine.LocationEngineRequest;
+import com.trackasia.android.location.engine.LocationEngineResult;
 
 import java.util.Collections;
 import java.util.List;

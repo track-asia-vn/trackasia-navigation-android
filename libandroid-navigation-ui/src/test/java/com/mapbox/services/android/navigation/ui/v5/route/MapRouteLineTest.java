@@ -26,11 +26,11 @@ import androidx.annotation.NonNull;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.layers.LineLayer;
+import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.sources.GeoJsonOptions;
+import com.trackasia.android.style.sources.GeoJsonSource;
 import com.mapbox.services.android.navigation.ui.v5.BaseTest;
 import com.mapbox.services.android.navigation.ui.v5.R;
 

@@ -1,10 +1,13 @@
-## Changelog for the Trackasia Navigation SDK for Android
+## Changelog for the Maplibre Navigation SDK for Android
 
-Trackasia welcomes participation and contributions from everyone.
+Maplibre welcomes participation and contributions from everyone.
 
-### v2.0.1 - unreleased
+### v2.1.0 - unreleased
 
-- Sample app: Moved all configurations to a central place [#57](https://github.com/track-asia-vn/trackasia-navigation-android/pull/57)
+- Support multiple legs by snap to route engine [#77](https://github.com/track-asia/trackasia-navigation-android/pull/77)
+- Mark unused option `maximumDistanceOffRoute` as deprecated [#65](https://github.com/track-asia/trackasia-navigation-android/pull/65)
+- Fix move-away-from-maneuver logic of `OffRouteDetector` [#65](https://github.com/track-asia/trackasia-navigation-android/pull/65)
+- Sample app: Moved all configurations to a central place [#57](https://github.com/track-asia/trackasia-navigation-android/pull/57)
   > **Note**  
   > Please delete your existing `app/main/res/values/developer-config.xml` to generate the new one or copy following content to your existing file:
   ```xml
@@ -21,6 +24,7 @@ Trackasia welcomes participation and contributions from everyone.
   </resources>
   ```
 - Fix memory leak in Navigation Service
+- Only progress the user along the step / route if the user is close to the route (currently 1km), [#75](https://github.com/track-asia/trackasia-navigation-android/pull/75)
 
 ### v2.0.0 - March 21, 2023
 
@@ -28,11 +32,11 @@ Trackasia welcomes participation and contributions from everyone.
 - We adapted Navigation module (mostly `RouteFetcher`) to be aligned with the implementation we need in the Navigation-UI package.
 - Move Style-Url, Routing-Url and Access-Token to NavigationSettings in sample app.
 - Remove unused code (mostly Mapbox Speech Service related classes).
-- Updated Trackasia version to v10.0.2.
-- Incremented minSdk version from 15 to 21 to work same as Trackasia implementation.
-- Created custom classes for `GoogleLocationEngineImpl`, `Utils`, `LocationEngineProvider` which were removed from default implementation Trackasia to provide working with GSM location.
-- Corrected resource calls due to renamed res files in Trackasia (from `mapbox_` to `trackasia_`).
-- All changes are included in this pull request [49](https://github.com/track-asia-vn/trackasia-navigation-android/pull/49)
+- Updated Maplibre version to v10.0.2.
+- Incremented minSdk version from 15 to 21 to work same as trackasia implementation.
+- Created custom classes for `GoogleLocationEngineImpl`, `Utils`, `LocationEngineProvider` which were removed from default implementation trackasia to provide working with GSM location.
+- Corrected resource calls due to renamed res files in trackasia (from `mapbox_` to `trackasia_`).
+- All changes are included in this pull request [49](https://github.com/track-asia/trackasia-navigation-android/pull/49)
 - Updated dependencies of used libs and build tools
 - Removed AccessToken usage
 - Fixed Jitpack Build
@@ -40,7 +44,7 @@ Trackasia welcomes participation and contributions from everyone.
 
 ### v1.2.0 - November 21, 2022
 
-(Please use a recent commit from Jitpack see [#40](https://github.com/track-asia-vn/trackasia-navigation-android/issues/40), as the Release Build failed at Jitpack)
+(Please use a recent commit from Jitpack see [#40](https://github.com/track-asia/trackasia-navigation-android/issues/40), as the Release Build failed at Jitpack)
 
 - Fixed unit tests and updated some build dependencies. 
 - Added Flags for pending intents which are required in Android 31+
@@ -49,12 +53,12 @@ Trackasia welcomes participation and contributions from everyone.
 ### v1.1.1 and prior version - October 21, 2022
 
 - We completely removed the UI part from the SDK so it will only contain the logics for navigation and not the visuals.
-- We upgraded the [Mapbox Map SDK](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/android) to [Trackasia SDK](https://github.com/track-asia-vn/trackasia-native/tree/master/platform/android) version 9.4.0.
+- We upgraded the [Mapbox Map SDK](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/android) to [trackasia SDK](https://github.com/track-asia/trackasia-gl-native/tree/master/platform/android) version 9.4.0.
 - We upgraded the [NavigationRoute](https://github.com/flitsmeister/flitsmeister-navigation-android/blob/master/libandroid-navigation/src/main/java/com/mapbox/services/android/navigation/v5/navigation/NavigationRoute.java#L425)
   with the possibility to add an intercepter to the request.
 - We changed the [locationLayerPlugin](https://github.com/mapbox/mapbox-plugins-android) to the [location component](https://docs.mapbox.com/android/api/map-sdk/8.5.0/com/mapbox/mapboxsdk/location/LocationComponent.html)
 - We updated the logic around the implementation of the locationEngine so it can be used with the new locationEngine from the [Mapbox SDK](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/android).
-- We removed the telemetry class from the project. Nothing is being send to Mapbox or Trackasia.
+- We removed the telemetry class from the project. Nothing is being send to Mapbox or Maplibre.
 
 ___
 
@@ -89,14 +93,14 @@ Below you can find the changelog from the Mapbox Navigation SDK for Android, bef
 * Update NavigationView to guard against duplicate initializations [#1247](https://github.com/mapbox/mapbox-navigation-android/pull/1247)
 * Add NavigationViewOption for default or custom SpeechPlayer [#1232](https://github.com/mapbox/mapbox-navigation-android/pull/1232)
 * Added Burmese, Finnish, Korean, Norwegian guidance
-* Add toggles in NavigationMapboxMap for traffic and incident data [#1226](https://github.com/mapbox/mapbox-navigation-android/pull/1226)
+* Add toggles in NavigationTrackasiaMap for traffic and incident data [#1226](https://github.com/mapbox/mapbox-navigation-android/pull/1226)
 * Update Map styles to V4 with incident coverage [#1234](https://github.com/mapbox/mapbox-navigation-android/pull/1234)
 * Add initialization logic for null RouteOptions [#1229](https://github.com/mapbox/mapbox-navigation-android/pull/1229)
 * add open pending intent which brings the existing task (activity) to the foreground when clicking the notification [#1221](https://github.com/mapbox/mapbox-navigation-android/pull/1221)
 
 ### v0.18.0 - August 24, 2018
 
-* Add toggles in NavigationMapboxMap for traffic and incident data [#1226](https://github.com/mapbox/mapbox-navigation-android/pull/1226)
+* Add toggles in NavigationTrackasiaMap for traffic and incident data [#1226](https://github.com/mapbox/mapbox-navigation-android/pull/1226)
 * Update Map styles to V4 with incident coverage [#1234](https://github.com/mapbox/mapbox-navigation-android/pull/1234)
 * Add initialization logic for null RouteOptions [#1229](https://github.com/mapbox/mapbox-navigation-android/pull/1229)
 * Reopen the app when when clicking the whole notification [#1221](https://github.com/mapbox/mapbox-navigation-android/pull/1221)
@@ -111,7 +115,7 @@ Below you can find the changelog from the Mapbox Navigation SDK for Android, bef
 * Notify InstructionListAdapter after animation finishes [#1143](https://github.com/mapbox/mapbox-navigation-android/pull/1143)
 * Revert MAS version from 3.4.0 to 3.3.0 [#1200](https://github.com/mapbox/mapbox-navigation-android/pull/1200)
 * Update Java SDK to 3.4.0 [#1196](https://github.com/mapbox/mapbox-navigation-android/pull/1196)
-* Allow access to NavigationMapboxMap and MapboxNavigation [#1179](https://github.com/mapbox/mapbox-navigation-android/pull/1179)
+* Allow access to NavigationTrackasiaMap and MapboxNavigation [#1179](https://github.com/mapbox/mapbox-navigation-android/pull/1179)
 * Retrieve feedback Strings from Resources [#1194](https://github.com/mapbox/mapbox-navigation-android/pull/1194)
 * Update README Snapshot [#1186](https://github.com/mapbox/mapbox-navigation-android/pull/1186)
 * Add gradle-versions-plugin to the project [#1187](https://github.com/mapbox/mapbox-navigation-android/pull/1187)
@@ -342,7 +346,7 @@ Below you can find the changelog from the Mapbox Navigation SDK for Android, bef
 * Update Maps SDK to 5.3.1 [#645](https://github.com/mapbox/mapbox-navigation-android/pull/645)
 * Check for null directions route or geometry in SessionState [#643](https://github.com/mapbox/mapbox-navigation-android/pull/643)
 * Remove NavigationViewModel as lifecycle observer [#643](https://github.com/mapbox/mapbox-navigation-android/pull/643)
-* Exposes the MapboxMap in NavigationView with a getter method [#642](https://github.com/mapbox/mapbox-navigation-android/pull/642)
+* Exposes the TrackasiaMap in NavigationView with a getter method [#642](https://github.com/mapbox/mapbox-navigation-android/pull/642)
 * Package delivery/ride sharing waypoint demo [#641](https://github.com/mapbox/mapbox-navigation-android/pull/641)
 * Removed boolean that was preventing subsequent navigation sessions [#640](https://github.com/mapbox/mapbox-navigation-android/pull/640)
 * Add FasterRouteDetector to check for quicker routes while navigating [#638](https://github.com/mapbox/mapbox-navigation-android/pull/638)

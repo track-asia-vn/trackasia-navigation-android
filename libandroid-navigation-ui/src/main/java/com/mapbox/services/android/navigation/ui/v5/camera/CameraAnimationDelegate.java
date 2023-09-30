@@ -1,18 +1,18 @@
 package com.mapbox.services.android.navigation.ui.v5.camera;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.camera.CameraUpdate;
+import com.trackasia.android.location.modes.CameraMode;
+import com.trackasia.android.maps.TrackasiaMap;
 
 class CameraAnimationDelegate {
 
-  private final MapboxMap mapboxMap;
+  private final TrackasiaMap mapboxMap;
 
-  CameraAnimationDelegate(MapboxMap mapboxMap) {
+  CameraAnimationDelegate(TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 
-  void render(NavigationCameraUpdate update, int durationMs, MapboxMap.CancelableCallback callback) {
+  void render(NavigationCameraUpdate update, int durationMs, TrackasiaMap.CancelableCallback callback) {
     CameraUpdateMode mode = update.getMode();
     CameraUpdate cameraUpdate = update.getCameraUpdate();
     if (mode == CameraUpdateMode.OVERRIDE) {

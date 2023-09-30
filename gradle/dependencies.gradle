@@ -9,10 +9,10 @@ ext {
     ]
 
     version = [
-            mapLibreVersion             : '10.0.2',
-            mapLibreService             : '5.9.0',
-            mapLibreTurf                : '5.9.0',
-            mapLibreAnnotations         : '1.0.0',
+            trackAsiaVersion             : '1.0.16',
+            trackAsiaService             : '1.0.6',
+            trackAsiaTurf                : '1.0.6',
+            trackAsiaAnnotations         : '1.0.0',
             autoValue                   : '1.10.1',
             autoValueParcel             : '0.2.5',
             junit                       : '4.13.2',
@@ -55,11 +55,12 @@ ext {
     ]
 
     dependenciesList = [
-            // maplibre
-            mapLibre                : "org.maplibre.gl:android-sdk:${version.mapLibreVersion}",
-            mapLibreServices        : "org.maplibre.gl:android-sdk-services:${version.mapLibreService}",
-            mapLibreTurf            : "org.maplibre.gl:android-sdk-turf:${version.mapLibreTurf}",
-            mapLibreAnnotations     : "org.maplibre.gl:android-plugin-annotation-v9:${version.mapLibreAnnotations}",
+            // trackasia
+            trackAsia                : "io.github.track-asia:android-sdk:${version.trackAsiaVersion}",
+            trackAsiaServices        : "io.github.track-asia:android-sdk-services:${version.trackAsiaService}",
+            trackAsiaDerectionsModes : "io.github.track-asia:android-sdk-directions-models:${version.trackAsiaService}",
+            trackAsiaTurf            : "io.github.track-asia:android-sdk-turf:${version.trackAsiaTurf}",
+            trackAsiaAnnotations     : "io.github.track-asia:android-plugin-annotation-v9:${version.trackAsiaAnnotations}",
 
             // AutoValue
             autoValue               : "com.google.auto.value:auto-value:${version.autoValue}",

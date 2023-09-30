@@ -5,7 +5,7 @@ import androidx.test.espresso.ViewAction;
 
 import com.mapbox.services.android.navigation.testapp.R;
 import com.mapbox.services.android.navigation.testapp.test.TestNavigationActivity;
-import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
+import com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMap;
 
 import org.junit.Test;
 
@@ -71,8 +71,8 @@ public class NavigationViewOrientationTest extends BaseNavigationActivityTest {
     onView(withId(R.id.navigationMapView)).perform(swipeUp());
     changeOrientation(orientationLandscape());
 
-    NavigationMapboxMap navigationMapboxMap = getNavigationView().retrieveNavigationMapboxMap();
-    boolean isTrackingEnabled = navigationMapboxMap.retrieveCamera().isTrackingEnabled();
+    NavigationTrackasiaMap navigationTrackasiaMap = getNavigationView().retrieveNavigationTrackasiaMap();
+    boolean isTrackingEnabled = navigationTrackasiaMap.retrieveCamera().isTrackingEnabled();
     assertFalse(isTrackingEnabled);
   }
 
@@ -86,8 +86,8 @@ public class NavigationViewOrientationTest extends BaseNavigationActivityTest {
     onView(withId(R.id.navigationMapView)).perform(swipeUp());
     changeOrientation(orientationLandscape());
 
-    NavigationMapboxMap navigationMapboxMap = getNavigationView().retrieveNavigationMapboxMap();
-    boolean isWaynameVisible = navigationMapboxMap.isWaynameVisible();
+    NavigationTrackasiaMap navigationTrackasiaMap = getNavigationView().retrieveNavigationTrackasiaMap();
+    boolean isWaynameVisible = navigationTrackasiaMap.isWaynameVisible();
     assertFalse(isWaynameVisible);
   }
 

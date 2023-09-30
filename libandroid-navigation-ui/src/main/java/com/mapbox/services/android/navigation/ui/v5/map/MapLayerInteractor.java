@@ -2,28 +2,28 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 
 import android.graphics.Color;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.LineLayer;
+import com.trackasia.android.style.layers.SymbolLayer;
 
 import java.util.List;
 
-import static com.mapbox.mapboxsdk.style.layers.Property.NONE;
-import static com.mapbox.mapboxsdk.style.layers.Property.VISIBLE;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
-import static com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap.STREETS_LAYER_ID;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.lineColor;
+import static com.trackasia.android.style.layers.PropertyFactory.lineWidth;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
+import static com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMap.STREETS_LAYER_ID;
 
 class MapLayerInteractor {
 
   private static final float DEFAULT_WIDTH = 20f;
   private static final int LAST_INDEX = 0;
 
-  private final MapboxMap mapboxMap;
+  private final TrackasiaMap mapboxMap;
 
-  MapLayerInteractor(MapboxMap mapboxMap) {
+  MapLayerInteractor(TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 

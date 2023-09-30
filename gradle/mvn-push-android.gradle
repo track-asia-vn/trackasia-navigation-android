@@ -44,11 +44,11 @@ def obtainMavenLocalUrl() {
 }
 
 def getRepositoryUsername() {
-  return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+  return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : "sangnguyen"
 }
 
 def getRepositoryPassword() {
-  return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+  return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : "@AbcSang070992"
 }
 
 afterEvaluate { project ->
@@ -104,7 +104,7 @@ afterEvaluate { project ->
   }
 
   signing {
-    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
   }
 

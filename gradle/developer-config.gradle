@@ -8,7 +8,7 @@ task accessToken {
         String mapboxAccessToken = "$System.env.MAPBOX_ACCESS_TOKEN"
         if (mapboxAccessToken == "null") {
             System.out.println("You should set the MAPBOX_ACCESS_TOKEN environment variable.")
-            mapboxAccessToken = "YOUR_MAPBOX_ACCESS_TOKEN_GOES_HERE"
+            mapboxAccessToken = "pk.eyJ1Ijoic2FuZ25ndXllbjI1IiwiYSI6ImNsMGU0djFicjBmYzczam4wbnpmdjVrcGcifQ.s-R3of1BK-vomakvEGkgYw"
         }
         String tokenFileContents = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                 "<resources>\n" +

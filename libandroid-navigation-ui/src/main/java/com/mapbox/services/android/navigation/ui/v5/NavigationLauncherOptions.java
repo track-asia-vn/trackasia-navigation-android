@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.trackasia.android.camera.CameraPosition;
 
 @AutoValue
 public abstract class NavigationLauncherOptions extends NavigationUiOptions {

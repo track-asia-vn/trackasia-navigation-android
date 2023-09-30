@@ -2,7 +2,7 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 
 import android.graphics.PointF;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class WaynameFeatureFinderTest {
 
   @Test
   public void queryRenderedFeatures_mapboxMapIsCalled() {
-    MapboxMap mapboxMap = mock(MapboxMap.class);
+    TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
     WaynameFeatureFinder featureFinder = new WaynameFeatureFinder(mapboxMap);
     PointF point = mock(PointF.class);
     String[] layerIds = {"id", "id"};

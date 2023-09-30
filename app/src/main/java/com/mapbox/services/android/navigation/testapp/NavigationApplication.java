@@ -2,8 +2,8 @@ package com.mapbox.services.android.navigation.testapp;
 
 import android.app.Application;
 
-import com.mapbox.mapboxsdk.BuildConfig;
-import com.mapbox.mapboxsdk.Mapbox;
+import com.trackasia.android.BuildConfig;
+import com.trackasia.android.Trackasia;
 
 import timber.log.Timber;
 
@@ -17,7 +17,7 @@ public class NavigationApplication extends Application {
       Timber.plant(new Timber.DebugTree());
     }
 
-    Mapbox.getInstance(getApplicationContext());
+    Trackasia.getInstance(getApplicationContext());
   }
 
 }

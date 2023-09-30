@@ -23,19 +23,20 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.api.directions.v5.models.RouteOptions;
+import com.mapbox.core.utils.TextUtils;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.OnMapReadyCallback;
+import com.trackasia.android.maps.Style;
 import com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera;
 import com.mapbox.services.android.navigation.ui.v5.instruction.ImageCreator;
 import com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView;
 import com.mapbox.services.android.navigation.ui.v5.instruction.NavigationAlertView;
-import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
-import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMapInstanceState;
+import com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMap;
+import com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMapInstanceState;
 import com.mapbox.services.android.navigation.ui.v5.map.WayNameView;
 import com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet;
 import com.mapbox.services.android.navigation.v5.location.replay.ReplayRouteLocationEngine;
@@ -85,10 +86,10 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   private NavigationPresenter navigationPresenter;
   private NavigationViewEventDispatcher navigationViewEventDispatcher;
   private NavigationViewModel navigationViewModel;
-  private NavigationMapboxMap navigationMap;
+  private NavigationTrackasiaMap navigationMap;
   private OnNavigationReadyCallback onNavigationReadyCallback;
   private NavigationOnCameraTrackingChangedListener onTrackingChangedListener;
-  private NavigationMapboxMapInstanceState mapInstanceState;
+  private NavigationTrackasiaMapInstanceState mapInstanceState;
   private CameraPosition initialMapCameraPosition;
   private boolean isMapInitialized;
   private boolean isSubscribed;
@@ -231,7 +232,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
    * @since 0.6.0
    */
   @Override
-  public void onMapReady(final MapboxMap mapboxMap) {
+  public void onMapReady(final TrackasiaMap mapboxMap) {
     mapboxMap.setStyle(ThemeSwitcher.retrieveMapStyle(getContext()), new Style.OnStyleLoaded() {
       @Override
       public void onStyleLoaded(@NonNull Style style) {
@@ -310,7 +311,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
    * <p>
    * If you'd like to use this method without being overridden by the default way names
    * values we provide, please disabled auto-query with
-   * {@link NavigationMapboxMap#updateWaynameQueryMap(boolean)}.
+   * {@link NavigationTrackasiaMap#updateWaynameQueryMap(boolean)}.
    *
    * @param wayName to update the view
    */
@@ -325,12 +326,15 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
    * <p>
    * If you'd like to use this method without being overridden by the default visibility values
    * values we provide, please disabled auto-query with
-   * {@link NavigationMapboxMap#updateWaynameQueryMap(boolean)}.
+   * {@link NavigationTrackasiaMap#updateWaynameQueryMap(boolean)}.
    *
    * @param isVisible true to show, false to hide
    */
   @Override
   public void updateWayNameVisibility(boolean isVisible) {
+    if (TextUtils.isEmpty(wayNameView.retrieveWayNameText())) {
+      isVisible = false;
+    }
     wayNameView.updateVisibility(isVisible);
     if (navigationMap != null) {
       navigationMap.updateWaynameQueryMap(isVisible);
@@ -443,12 +447,12 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
    * Gives the ability to manipulate the map directly for anything that might not currently be
    * supported. This returns null until the view is initialized.
    * <p>
-   * The {@link NavigationMapboxMap} gives direct access to the map UI (location marker, route, etc.).
+   * The {@link NavigationTrackasiaMap} gives direct access to the map UI (location marker, route, etc.).
    *
    * @return navigation mapbox map object, or null if view has not been initialized
    */
   @Nullable
-  public NavigationMapboxMap retrieveNavigationMapboxMap() {
+  public NavigationTrackasiaMap retrieveNavigationTrackasiaMap() {
     return navigationMap;
   }
 
@@ -539,11 +543,11 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
       navigationViewEventDispatcher));
   }
 
-  private void initializeNavigationMap(MapView mapView, MapboxMap map) {
+  private void initializeNavigationMap(MapView mapView, TrackasiaMap map) {
     if (initialMapCameraPosition != null) {
       map.setCameraPosition(initialMapCameraPosition);
     }
-    navigationMap = new NavigationMapboxMap(mapView, map);
+    navigationMap = new NavigationTrackasiaMap(mapView, map);
     navigationMap.updateLocationLayerRenderMode(RenderMode.GPS);
     if (mapInstanceState != null) {
       navigationMap.restoreFrom(mapInstanceState);
@@ -617,7 +621,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
     establish(options);
     navigationViewModel.initialize(options);
     initializeNavigationListeners(options, navigationViewModel);
-    setupNavigationMapboxMap(options);
+    setupNavigationTrackasiaMap(options);
 
     if (!isSubscribed) {
       initializeClickListeners();
@@ -679,7 +683,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
     navigationViewEventDispatcher.initializeListeners(options, navigationViewModel);
   }
 
-  private void setupNavigationMapboxMap(NavigationViewOptions options) {
+  private void setupNavigationTrackasiaMap(NavigationViewOptions options) {
     navigationMap.updateWaynameQueryMap(options.waynameChipEnabled());
   }
 

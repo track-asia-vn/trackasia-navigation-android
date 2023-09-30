@@ -2,14 +2,14 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapbox.mapboxsdk.style.sources.VectorSource;
+import com.trackasia.android.location.LocationComponent;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.plugins.annotation.SymbolOptions;
+import com.trackasia.android.style.sources.GeoJsonSource;
+import com.trackasia.android.style.sources.Source;
+import com.trackasia.android.style.sources.VectorSource;
 import com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.ui.v5.route.OnRouteSelectionChangeListener;
@@ -25,12 +25,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class NavigationMapboxMapTest {
+public class NavigationTrackasiaMapTest {
 
   @Test
   public void updateIncidentsVisibility_layerIdentifierIsClosures() {
     MapLayerInteractor mockedMapLayerInteractor = mock(MapLayerInteractor.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mockedMapLayerInteractor);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mockedMapLayerInteractor);
     boolean anyVisibility = true;
 
     theNavigationMap.updateIncidentsVisibility(anyVisibility);
@@ -41,7 +41,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void isIncidentsVisible_layerIdentifierIsClosures() {
     MapLayerInteractor mockedMapLayerInteractor = mock(MapLayerInteractor.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mockedMapLayerInteractor);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mockedMapLayerInteractor);
 
     theNavigationMap.isIncidentsVisible();
 
@@ -51,7 +51,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void updateTrafficVisibility_layerIdentifierIsTraffic() {
     MapLayerInteractor mockedMapLayerInteractor = mock(MapLayerInteractor.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mockedMapLayerInteractor);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mockedMapLayerInteractor);
     boolean anyVisibility = false;
 
     theNavigationMap.updateTrafficVisibility(anyVisibility);
@@ -62,7 +62,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void isTrafficVisible_layerIdentifierIsTraffic() {
     MapLayerInteractor mockedMapLayerInteractor = mock(MapLayerInteractor.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mockedMapLayerInteractor);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mockedMapLayerInteractor);
 
     theNavigationMap.isTrafficVisible();
 
@@ -72,7 +72,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void updateRenderMode_locationComponentIsUpdatedWithRenderMode() {
     LocationComponent locationComponent = mock(LocationComponent.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(locationComponent);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(locationComponent);
     int renderMode = RenderMode.GPS;
 
     theNavigationMap.updateLocationLayerRenderMode(renderMode);
@@ -83,7 +83,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void drawRoutes_mapRoutesAreAdded() {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapRoute);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapRoute);
     List<DirectionsRoute> routes = new ArrayList<>();
 
     theNavigationMap.drawRoutes(routes);
@@ -94,7 +94,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void setOnRouteSelectionChangeListener_listenerIsSet() {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapRoute);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapRoute);
     OnRouteSelectionChangeListener listener = mock(OnRouteSelectionChangeListener.class);
 
     theNavigationMap.setOnRouteSelectionChangeListener(listener);
@@ -105,7 +105,7 @@ public class NavigationMapboxMapTest {
   @Test
   public void showAlternativeRoutes_correctVisibilityIsSet() {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapRoute);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapRoute);
     boolean notVisible = false;
 
     theNavigationMap.showAlternativeRoutes(notVisible);
@@ -117,7 +117,7 @@ public class NavigationMapboxMapTest {
   public void addOnWayNameChangedListener_listenerIsAddedToMapWayname() {
     MapWayName mapWayName = mock(MapWayName.class);
     MapFpsDelegate mapFpsDelegate = mock(MapFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate);
     OnWayNameChangedListener listener = mock(OnWayNameChangedListener.class);
 
     boolean isAdded = theNavigationMap.addOnWayNameChangedListener(listener);
@@ -129,7 +129,7 @@ public class NavigationMapboxMapTest {
   public void removeOnWayNameChangedListener_listenerIsRemovedFromMapWayname() {
     MapWayName mapWayName = mock(MapWayName.class);
     MapFpsDelegate mapFpsDelegate = mock(MapFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate);
     OnWayNameChangedListener listener = mock(OnWayNameChangedListener.class);
 
     theNavigationMap.addOnWayNameChangedListener(listener);
@@ -142,7 +142,7 @@ public class NavigationMapboxMapTest {
   public void updateMapFpsThrottle_mapFpsDelegateIsUpdated() {
     MapWayName mapWayName = mock(MapWayName.class);
     MapFpsDelegate mapFpsDelegate = mock(MapFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate);
     int maxFpsThreshold = 10;
 
     theNavigationMap.updateMapFpsThrottle(maxFpsThreshold);
@@ -154,7 +154,7 @@ public class NavigationMapboxMapTest {
   public void updateMapFpsThrottleEnabled_mapFpsDelegateIsEnabled() {
     MapWayName mapWayName = mock(MapWayName.class);
     MapFpsDelegate mapFpsDelegate = mock(MapFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate);
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate);
     boolean isEnabled = false;
 
     theNavigationMap.updateMapFpsThrottleEnabled(isEnabled);
@@ -169,7 +169,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStart();
@@ -184,7 +184,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStop();
@@ -199,7 +199,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStart();
@@ -214,7 +214,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStop();
@@ -228,12 +228,12 @@ public class NavigationMapboxMapTest {
     String urlV7 = "mapbox://mapbox.mapbox-streets-v7";
     List<Source> sources = buildMockSourcesWith(urlV7);
     when(style.getSources()).thenReturn(sources);
-    MapboxMap mapboxMap = mock(MapboxMap.class);
+    TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
     when(mapboxMap.getStyle()).thenReturn(style);
     MapLayerInteractor layerInteractor = mock(MapLayerInteractor.class);
     MapPaddingAdjustor adjustor = mock(MapPaddingAdjustor.class);
 
-    new NavigationMapboxMap(mapboxMap, layerInteractor, adjustor);
+    new NavigationTrackasiaMap(mapboxMap, layerInteractor, adjustor);
 
     verify(layerInteractor).addStreetsLayer("composite", "road_label");
   }
@@ -245,7 +245,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.updateLocationFpsThrottleEnabled(false);
@@ -260,7 +260,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStart();
@@ -275,7 +275,7 @@ public class NavigationMapboxMapTest {
     NavigationMapRoute mapRoute = mock(NavigationMapRoute.class);
     NavigationCamera mapCamera = mock(NavigationCamera.class);
     LocationFpsDelegate locationFpsDelegate = mock(LocationFpsDelegate.class);
-    NavigationMapboxMap theNavigationMap = new NavigationMapboxMap(mapWayName, mapFpsDelegate,
+    NavigationTrackasiaMap theNavigationMap = new NavigationTrackasiaMap(mapWayName, mapFpsDelegate,
       mapRoute, mapCamera, locationFpsDelegate);
 
     theNavigationMap.onStop();
@@ -289,12 +289,12 @@ public class NavigationMapboxMapTest {
     String urlV7 = "mapbox://mapbox.mapbox-streets-v8";
     List<Source> sources = buildMockSourcesWith(urlV7);
     when(style.getSources()).thenReturn(sources);
-    MapboxMap mapboxMap = mock(MapboxMap.class);
+    TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
     when(mapboxMap.getStyle()).thenReturn(style);
     MapLayerInteractor layerInteractor = mock(MapLayerInteractor.class);
     MapPaddingAdjustor adjustor = mock(MapPaddingAdjustor.class);
 
-    new NavigationMapboxMap(mapboxMap, layerInteractor, adjustor);
+    new NavigationTrackasiaMap(mapboxMap, layerInteractor, adjustor);
 
     verify(layerInteractor).addStreetsLayer("composite", "road");
   }
@@ -303,7 +303,7 @@ public class NavigationMapboxMapTest {
   public void addDestinationMarker_navigationSymbolManagerReceivesPosition() {
     Point position = mock(Point.class);
     NavigationSymbolManager navigationSymbolManager = mock(NavigationSymbolManager.class);
-    NavigationMapboxMap map = new NavigationMapboxMap(navigationSymbolManager);
+    NavigationTrackasiaMap map = new NavigationTrackasiaMap(navigationSymbolManager);
 
     map.addDestinationMarker(position);
 
@@ -314,7 +314,7 @@ public class NavigationMapboxMapTest {
   public void addCustomMarker_navigationSymbolManagerReceivesOptions() {
     SymbolOptions options = mock(SymbolOptions.class);
     NavigationSymbolManager navigationSymbolManager = mock(NavigationSymbolManager.class);
-    NavigationMapboxMap map = new NavigationMapboxMap(navigationSymbolManager);
+    NavigationTrackasiaMap map = new NavigationTrackasiaMap(navigationSymbolManager);
 
     map.addCustomMarker(options);
 

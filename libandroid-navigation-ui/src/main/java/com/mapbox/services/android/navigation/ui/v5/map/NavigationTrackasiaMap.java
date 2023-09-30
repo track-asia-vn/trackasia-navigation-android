@@ -14,20 +14,20 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
-import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
-import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapbox.mapboxsdk.style.sources.VectorSource;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.location.LocationComponent;
+import com.trackasia.android.location.LocationComponentActivationOptions;
+import com.trackasia.android.location.LocationComponentOptions;
+import com.trackasia.android.location.OnCameraTrackingChangedListener;
+import com.trackasia.android.location.modes.RenderMode;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.OnMapReadyCallback;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.plugins.annotation.SymbolManager;
+import com.trackasia.android.plugins.annotation.SymbolOptions;
+import com.trackasia.android.style.sources.Source;
+import com.trackasia.android.style.sources.VectorSource;
 import com.mapbox.services.android.navigation.ui.v5.R;
 import com.mapbox.services.android.navigation.ui.v5.ThemeSwitcher;
 import com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera;
@@ -42,14 +42,14 @@ import static com.mapbox.services.android.navigation.ui.v5.map.NavigationSymbolM
 import static com.mapbox.services.android.navigation.v5.navigation.NavigationConstants.NAVIGATION_MINIMUM_MAP_ZOOM;
 
 /**
- * Wrapper class for {@link MapboxMap}.
+ * Wrapper class for {@link TrackasiaMap}.
  * <p>
  * This class initializes various map-related components and plugins that are
  * useful for providing a navigation-driven map experience.
  * <p>
  * These APIs include drawing a route line, camera animations, and more.
  */
-public class NavigationMapboxMap {
+public class NavigationTrackasiaMap {
 
   static final String STREETS_LAYER_ID = "streetsLayer";
   private static final String MAPBOX_STREETS_V7_URL = "mapbox.mapbox-streets-v7";
@@ -67,7 +67,7 @@ public class NavigationMapboxMap {
     = new MapWayNameChangedListener(onWayNameChangedListeners);
   private NavigationMapSettings settings = new NavigationMapSettings();
   private MapView mapView;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private LocationComponent locationComponent;
   private MapPaddingAdjustor mapPaddingAdjustor;
   private NavigationSymbolManager navigationSymbolManager;
@@ -81,13 +81,13 @@ public class NavigationMapboxMap {
   private LocationFpsDelegate locationFpsDelegate;
 
   /**
-   * Constructor that can be used once {@link com.mapbox.mapboxsdk.maps.OnMapReadyCallback}
+   * Constructor that can be used once {@link com.trackasia.android.maps.OnMapReadyCallback}
    * has been called via {@link MapView#getMapAsync(OnMapReadyCallback)}.
    *
    * @param mapView   for map size and Context
    * @param mapboxMap for APIs to interact with the map
    */
-  public NavigationMapboxMap(@NonNull MapView mapView, @NonNull MapboxMap mapboxMap) {
+  public NavigationTrackasiaMap(@NonNull MapView mapView, @NonNull TrackasiaMap mapboxMap) {
     this.mapView = mapView;
     this.mapboxMap = mapboxMap;
     initializeLocationComponent(mapView, mapboxMap);
@@ -100,33 +100,33 @@ public class NavigationMapboxMap {
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(MapLayerInteractor layerInteractor) {
+  NavigationTrackasiaMap(MapLayerInteractor layerInteractor) {
     this.layerInteractor = layerInteractor;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(LocationComponent locationComponent) {
+  NavigationTrackasiaMap(LocationComponent locationComponent) {
     this.locationComponent = locationComponent;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(NavigationMapRoute mapRoute) {
+  NavigationTrackasiaMap(NavigationMapRoute mapRoute) {
     this.mapRoute = mapRoute;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(NavigationSymbolManager navigationSymbolManager) {
+  NavigationTrackasiaMap(NavigationSymbolManager navigationSymbolManager) {
     this.navigationSymbolManager = navigationSymbolManager;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate) {
+  NavigationTrackasiaMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate) {
     this.mapWayName = mapWayName;
     this.mapFpsDelegate = mapFpsDelegate;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate,
+  NavigationTrackasiaMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate,
                       NavigationMapRoute mapRoute, NavigationCamera mapCamera,
                       LocationFpsDelegate locationFpsDelegate) {
     this.mapWayName = mapWayName;
@@ -137,7 +137,7 @@ public class NavigationMapboxMap {
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationMapboxMap(MapboxMap mapboxMap, MapLayerInteractor layerInteractor, MapPaddingAdjustor adjustor) {
+  NavigationTrackasiaMap(TrackasiaMap mapboxMap, MapLayerInteractor layerInteractor, MapPaddingAdjustor adjustor) {
     this.layerInteractor = layerInteractor;
     initializeWayName(mapboxMap, adjustor);
   }
@@ -150,7 +150,7 @@ public class NavigationMapboxMap {
    *
    * @param context  to retrieve the icon drawable from the theme
    * @param position the point at which the marker will be placed
-   * @deprecated Use {@link NavigationMapboxMap#addDestinationMarker(Point)} instead.
+   * @deprecated Use {@link NavigationTrackasiaMap#addDestinationMarker(Point)} instead.
    * A {@link Context} is no longer needed.
    */
   @Deprecated
@@ -173,10 +173,10 @@ public class NavigationMapboxMap {
   /**
    * Adds a custom marker to the map based on the options provided.
    * <p>
-   * Please note, the map will manage all markers added.  Calling {@link NavigationMapboxMap#clearMarkers()}
+   * Please note, the map will manage all markers added.  Calling {@link NavigationTrackasiaMap#clearMarkers()}
    * will clear all destination / custom markers that have been added to the map.
    *
-   * @param options for the custom {@link com.mapbox.mapboxsdk.plugins.annotation.Symbol}
+   * @param options for the custom {@link com.trackasia.android.plugins.annotation.Symbol}
    */
   public void addCustomMarker(SymbolOptions options) {
     navigationSymbolManager.addCustomSymbolFor(options);
@@ -285,8 +285,8 @@ public class NavigationMapboxMap {
    * Can be used to store the current state of the map in
    * {@link FragmentActivity#onSaveInstanceState(Bundle, PersistableBundle)}.
    * <p>
-   * This method uses {@link NavigationMapboxMapInstanceState}, stored with the provided key.  This key
-   * can also later be used to extract the {@link NavigationMapboxMapInstanceState}.
+   * This method uses {@link NavigationTrackasiaMapInstanceState}, stored with the provided key.  This key
+   * can also later be used to extract the {@link NavigationTrackasiaMapInstanceState}.
    *
    * @param key      used to store the state
    * @param outState to store state variables
@@ -296,22 +296,22 @@ public class NavigationMapboxMap {
     settings.updateShouldUseDefaultPadding(mapPaddingAdjustor.isUsingDefault());
     settings.updateCameraTrackingMode(mapCamera.getCameraTrackingMode());
     settings.updateLocationFpsEnabled(locationFpsDelegate.isEnabled());
-    NavigationMapboxMapInstanceState instanceState = new NavigationMapboxMapInstanceState(settings);
+    NavigationTrackasiaMapInstanceState instanceState = new NavigationTrackasiaMapInstanceState(settings);
     outState.putParcelable(key, instanceState);
   }
 
   /**
-   * Can be used to restore a {@link NavigationMapboxMap} after it has been initialized.
+   * Can be used to restore a {@link NavigationTrackasiaMap} after it has been initialized.
    * <p>
    * This cannot be called in {@link FragmentActivity#onRestoreInstanceState(Bundle)}
    * because we cannot guarantee the map is re-initialized at that point.
    * <p>
-   * You can extract the {@link NavigationMapboxMapInstanceState} in <tt>onRestoreInstanceState</tt> and then
+   * You can extract the {@link NavigationTrackasiaMapInstanceState} in <tt>onRestoreInstanceState</tt> and then
    * restore the map once it's ready.
    *
    * @param instanceState to extract state variables
    */
-  public void restoreFrom(NavigationMapboxMapInstanceState instanceState) {
+  public void restoreFrom(NavigationTrackasiaMapInstanceState instanceState) {
     settings = instanceState.retrieveSettings();
     restoreMapWith(settings);
   }
@@ -491,13 +491,13 @@ public class NavigationMapboxMap {
   }
 
   /**
-   * Provides the {@link MapboxMap} originally given in the constructor.
+   * Provides the {@link TrackasiaMap} originally given in the constructor.
    * <p>
    * This method gives access to all map-related APIs.
    *
    * @return map provided in the constructor
    */
-  public MapboxMap retrieveMap() {
+  public TrackasiaMap retrieveMap() {
     return mapboxMap;
   }
 
@@ -596,7 +596,7 @@ public class NavigationMapboxMap {
   }
 
   @SuppressLint("MissingPermission")
-  private void initializeLocationComponent(MapView mapView, MapboxMap map) {
+  private void initializeLocationComponent(MapView mapView, TrackasiaMap map) {
     locationComponent = map.getLocationComponent();
     map.setMinZoomPreference(NAVIGATION_MINIMUM_MAP_ZOOM);
     map.setMaxZoomPreference(NAVIGATION_MAXIMUM_MAP_ZOOM);
@@ -625,11 +625,11 @@ public class NavigationMapboxMap {
     return resId != -1 && (resId & 0xff000000) != 0 && (resId & 0x00ff0000) != 0;
   }
 
-  private void initializeMapPaddingAdjustor(MapView mapView, MapboxMap mapboxMap) {
+  private void initializeMapPaddingAdjustor(MapView mapView, TrackasiaMap mapboxMap) {
     mapPaddingAdjustor = new MapPaddingAdjustor(mapView, mapboxMap);
   }
 
-  private void initializeNavigationSymbolManager(MapView mapView, MapboxMap mapboxMap) {
+  private void initializeNavigationSymbolManager(MapView mapView, TrackasiaMap mapboxMap) {
     Bitmap markerBitmap = ThemeSwitcher.retrieveThemeMapMarker(mapView.getContext());
     mapboxMap.getStyle().addImage(MAPBOX_NAVIGATION_MARKER_NAME, markerBitmap);
     SymbolManager symbolManager = new SymbolManager(mapView, mapboxMap, mapboxMap.getStyle());
@@ -638,25 +638,25 @@ public class NavigationMapboxMap {
     mapView.addOnDidFinishLoadingStyleListener(onStyleLoadedListener);
   }
 
-  private void initializeMapLayerInteractor(MapboxMap mapboxMap) {
+  private void initializeMapLayerInteractor(TrackasiaMap mapboxMap) {
     layerInteractor = new MapLayerInteractor(mapboxMap);
   }
 
-  private void initializeRoute(MapView mapView, MapboxMap map) {
+  private void initializeRoute(MapView mapView, TrackasiaMap map) {
     Context context = mapView.getContext();
     int routeStyleRes = ThemeSwitcher.retrieveNavigationViewStyle(context, R.attr.navigationViewRouteStyle);
     mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes);
   }
 
-  private void initializeCamera(MapboxMap map, LocationComponent locationComponent) {
+  private void initializeCamera(TrackasiaMap map, LocationComponent locationComponent) {
     mapCamera = new NavigationCamera(map, locationComponent);
   }
 
-  private void initializeLocationFpsDelegate(MapboxMap map, LocationComponent locationComponent) {
+  private void initializeLocationFpsDelegate(TrackasiaMap map, LocationComponent locationComponent) {
     locationFpsDelegate = new LocationFpsDelegate(map, locationComponent);
   }
 
-  private void initializeWayName(MapboxMap mapboxMap, MapPaddingAdjustor paddingAdjustor) {
+  private void initializeWayName(TrackasiaMap mapboxMap, MapPaddingAdjustor paddingAdjustor) {
     if (mapWayName != null) {
       return;
     }
@@ -667,7 +667,7 @@ public class NavigationMapboxMap {
     mapWayName.addOnWayNameChangedListener(internalWayNameChangedListener);
   }
 
-  private void initializeStreetsSource(MapboxMap mapboxMap) {
+  private void initializeStreetsSource(TrackasiaMap mapboxMap) {
     List<Source> sources = mapboxMap.getStyle().getSources();
     Source sourceV7 = findSourceByUrl(sources, MAPBOX_STREETS_V7_URL);
     Source sourceV8 = findSourceByUrl(sources, MAPBOX_STREETS_V8_URL);

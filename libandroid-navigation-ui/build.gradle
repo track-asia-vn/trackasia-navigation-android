@@ -47,12 +47,12 @@ dependencies {
   api project(':libandroid-navigation')
 
   // Maplibre Maps SDK
-  api dependenciesList.mapLibreServices
-  api dependenciesList.mapLibreTurf
-  api dependenciesList.mapLibreAnnotations
-  implementation(dependenciesList.mapLibre){
-    exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-sdk-geojson'
-    exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-sdk-turf'
+  api dependenciesList.trackAsiaServices
+  api dependenciesList.trackAsiaTurf
+  api dependenciesList.trackAsiaAnnotations
+  implementation(dependenciesList.trackAsia){
+    exclude group: 'io.github.track-asia', module: 'mapbox-sdk-geojson'
+    exclude group: 'io.github.track-asia', module: 'mapbox-sdk-turf'
   }
 
   // Support libraries

@@ -46,11 +46,18 @@ android {
 
 dependencies {
     // Flitsmeister Navigation SDK
-    implementation project(':libandroid-navigation')
-    implementation project(':libandroid-navigation-ui')
-    implementation(dependenciesList.mapLibre) {
-        exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-sdk-geojson'
-        exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-sdk-turf'
+    implementation(project(':libandroid-navigation')) {
+        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-models'
+        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-refresh-models'
+    }
+    implementation(project(':libandroid-navigation-ui')) {
+        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-models'
+        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-refresh-models'
+    }
+    compileOnly dependenciesList.trackAsiaDerectionsModes
+    implementation(dependenciesList.trackAsia) {
+        exclude group: 'io.github.track-asia', module: 'mapbox-sdk-geojson'
+        exclude group: 'io.github.track-asia', module: 'mapbox-sdk-turf'
     }
 
     // Support libraries

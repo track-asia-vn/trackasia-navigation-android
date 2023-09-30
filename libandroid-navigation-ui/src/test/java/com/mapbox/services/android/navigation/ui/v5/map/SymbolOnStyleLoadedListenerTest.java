@@ -2,8 +2,8 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 
 import android.graphics.Bitmap;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.Style;
 
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class SymbolOnStyleLoadedListenerTest {
 
   @Test
   public void onDidFinishLoadingStyle_markerIsAdded() {
-    MapboxMap mapboxMap = mock(MapboxMap.class);
+    TrackasiaMap mapboxMap = mock(TrackasiaMap.class);
     Style style = mock(Style.class);
     when(mapboxMap.getStyle()).thenReturn(style);
     Bitmap markerBitmap = mock(Bitmap.class);

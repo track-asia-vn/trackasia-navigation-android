@@ -5,10 +5,10 @@ import androidx.annotation.NonNull;
 
 import com.mapbox.api.directions.v5.models.LegStep;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.camera.CameraPosition;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.geometry.LatLngBounds;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationConstants;
 import com.mapbox.services.android.navigation.v5.navigation.camera.RouteInformation;
 import com.mapbox.services.android.navigation.v5.navigation.camera.SimpleCamera;
@@ -24,7 +24,7 @@ public class DynamicCamera extends SimpleCamera {
   private static final double MAX_CAMERA_ZOOM = 16d;
   private static final double MIN_CAMERA_ZOOM = 12d;
 
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
   private LegStep currentStep;
   private boolean hasPassedLowAlertLevel;
   private boolean hasPassedMediumAlertLevel;
@@ -32,7 +32,7 @@ public class DynamicCamera extends SimpleCamera {
   private boolean forceUpdateZoom;
   private boolean isShutdown = false;
 
-  public DynamicCamera(@NonNull MapboxMap mapboxMap) {
+  public DynamicCamera(@NonNull TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 
@@ -97,7 +97,7 @@ public class DynamicCamera extends SimpleCamera {
   }
 
   /**
-   * Creates a zoom value based on the result of {@link MapboxMap#getCameraForLatLngBounds(LatLngBounds, int[])}.
+   * Creates a zoom value based on the result of {@link TrackasiaMap#getCameraForLatLngBounds(LatLngBounds, int[])}.
    * <p>
    * 0 zoom is the world view, while 22 (default max threshold) is the closest you can position
    * the camera to the map.
@@ -121,7 +121,7 @@ public class DynamicCamera extends SimpleCamera {
   /**
    * Creates a camera position with the current location and upcoming maneuver location.
    * <p>
-   * Using {@link MapboxMap#getCameraForLatLngBounds(LatLngBounds, int[])} with a {@link LatLngBounds}
+   * Using {@link TrackasiaMap#getCameraForLatLngBounds(LatLngBounds, int[])} with a {@link LatLngBounds}
    * that includes the current location and upcoming maneuver location.
    *
    * @param location      for current location

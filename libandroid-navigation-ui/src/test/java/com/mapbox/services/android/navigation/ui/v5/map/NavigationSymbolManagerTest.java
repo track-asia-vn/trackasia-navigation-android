@@ -1,9 +1,9 @@
 package com.mapbox.services.android.navigation.ui.v5.map;
 
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
+import com.trackasia.android.plugins.annotation.Symbol;
+import com.trackasia.android.plugins.annotation.SymbolManager;
+import com.trackasia.android.plugins.annotation.SymbolOptions;
 
 import org.junit.Test;
 

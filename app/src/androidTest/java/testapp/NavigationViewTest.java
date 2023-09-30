@@ -1,7 +1,7 @@
 package testapp;
 
 import com.mapbox.services.android.navigation.testapp.test.TestNavigationActivity;
-import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
+import com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMap;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
 
 import org.junit.Test;
@@ -18,12 +18,12 @@ public class NavigationViewTest extends BaseNavigationActivityTest {
   }
 
   @Test
-  public void onInitialization_navigationMapboxMapIsNotNull() {
+  public void onInitialization_navigationTrackasiaMapIsNotNull() {
     validateTestSetup();
 
-    NavigationMapboxMap navigationMapboxMap = getNavigationView().retrieveNavigationMapboxMap();
+    NavigationTrackasiaMap navigationTrackasiaMap = getNavigationView().retrieveNavigationTrackasiaMap();
 
-    assertNotNull(navigationMapboxMap);
+    assertNotNull(navigationTrackasiaMap);
   }
 
   @Test

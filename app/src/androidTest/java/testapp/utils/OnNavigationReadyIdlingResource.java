@@ -12,7 +12,7 @@ import com.mapbox.api.directions.v5.DirectionsAdapterFactory;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.Mapbox;
+import com.trackasia.android.Trackasia;
 import com.mapbox.services.android.navigation.ui.v5.NavigationView;
 import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
 import com.mapbox.services.android.navigation.ui.v5.OnNavigationReadyCallback;
@@ -89,7 +89,7 @@ public class OnNavigationReadyIdlingResource implements IdlingResource, Callback
     Point origin = Point.fromLngLat(-77.033987, 38.900123);
     Point destination = Point.fromLngLat(-77.044818, 38.848942);
     NavigationRoute.builder(context)
-      .accessToken(Mapbox.getAccessToken())
+      .accessToken(Trackasia.getAccessToken())
       .origin(origin)
       .destination(destination)
       .build().getRoute(this);

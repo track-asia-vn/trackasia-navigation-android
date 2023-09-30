@@ -14,17 +14,17 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.utils.MathUtils;
+import com.trackasia.android.maps.MapView;
+import com.trackasia.android.maps.TrackasiaMap;
+import com.trackasia.android.maps.Style;
+import com.trackasia.android.style.layers.Layer;
+import com.trackasia.android.style.layers.LineLayer;
+import com.trackasia.android.style.layers.Property;
+import com.trackasia.android.style.layers.PropertyFactory;
+import com.trackasia.android.style.layers.SymbolLayer;
+import com.trackasia.android.style.sources.GeoJsonOptions;
+import com.trackasia.android.style.sources.GeoJsonSource;
+import com.trackasia.android.utils.MathUtils;
 import com.mapbox.services.android.navigation.ui.v5.R;
 import com.mapbox.services.android.navigation.ui.v5.utils.MapImageUtils;
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress;
@@ -36,19 +36,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.mapbox.mapboxsdk.style.expressions.Expression.color;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.interpolate;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.linear;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.step;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.stop;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.zoom;
-import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_MAP;
-import static com.mapbox.mapboxsdk.style.layers.Property.NONE;
-import static com.mapbox.mapboxsdk.style.layers.Property.VISIBLE;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
+import static com.trackasia.android.style.expressions.Expression.color;
+import static com.trackasia.android.style.expressions.Expression.get;
+import static com.trackasia.android.style.expressions.Expression.interpolate;
+import static com.trackasia.android.style.expressions.Expression.linear;
+import static com.trackasia.android.style.expressions.Expression.step;
+import static com.trackasia.android.style.expressions.Expression.stop;
+import static com.trackasia.android.style.expressions.Expression.zoom;
+import static com.trackasia.android.style.layers.Property.ICON_ROTATION_ALIGNMENT_MAP;
+import static com.trackasia.android.style.layers.Property.NONE;
+import static com.trackasia.android.style.layers.Property.VISIBLE;
+import static com.trackasia.android.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.trackasia.android.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.trackasia.android.style.layers.PropertyFactory.visibility;
 import static com.mapbox.services.android.navigation.ui.v5.route.RouteConstants.ARROW_BEARING;
 import static com.mapbox.services.android.navigation.ui.v5.route.RouteConstants.ARROW_HEAD_CASING_LAYER_ID;
 import static com.mapbox.services.android.navigation.ui.v5.route.RouteConstants.ARROW_HEAD_CASING_OFFSET;
@@ -90,9 +90,9 @@ class MapRouteArrow {
   private GeoJsonSource arrowHeadGeoJsonSource;
 
   private final MapView mapView;
-  private final MapboxMap mapboxMap;
+  private final TrackasiaMap mapboxMap;
 
-  MapRouteArrow(MapView mapView, MapboxMap mapboxMap, @StyleRes int styleRes) {
+  MapRouteArrow(MapView mapView, TrackasiaMap mapboxMap, @StyleRes int styleRes) {
     this.mapView = mapView;
     this.mapboxMap = mapboxMap;
 

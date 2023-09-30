@@ -13,16 +13,16 @@ import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
-import com.mapbox.mapboxsdk.annotations.MarkerOptions
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
-import com.mapbox.mapboxsdk.maps.Style
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraPosition
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.location.LocationComponent
+import com.trackasia.android.location.LocationComponentActivationOptions
+import com.trackasia.android.location.modes.CameraMode
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.mapbox.services.android.navigation.testapp.databinding.ActivityMockNavigationBinding
 import com.mapbox.services.android.navigation.testapp.databinding.ActivityNavigationUiBinding
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
@@ -40,8 +40,8 @@ import timber.log.Timber
 class NavigationUIActivity :
     AppCompatActivity(),
     OnMapReadyCallback,
-    MapboxMap.OnMapClickListener {
-    private lateinit var mapboxMap: MapboxMap
+    TrackasiaMap.OnMapClickListener {
+    private lateinit var mapboxMap: TrackasiaMap
 
     // Navigation related variables
     private var route: DirectionsRoute? = null
@@ -71,7 +71,7 @@ class NavigationUIActivity :
                 val options = NavigationLauncherOptions.builder()
                     .directionsRoute(route)
                     .shouldSimulateRoute(simulateRoute)
-                    .initialMapCameraPosition(CameraPosition.Builder().target(LatLng(userLocation.longitude, userLocation.latitude)).build())
+                    .initialMapCameraPosition(CameraPosition.Builder().target(LatLng(userLocation.latitude, userLocation.longitude)).build())
                     .lightThemeResId(R.style.TestNavigationViewLight)
                     .darkThemeResId(R.style.TestNavigationViewDark)
                     .build()
@@ -99,7 +99,7 @@ class NavigationUIActivity :
         }
     }
 
-    override fun onMapReady(mapboxMap: MapboxMap) {
+    override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
         mapboxMap.setStyle(Style.Builder().fromUri(getString(R.string.map_style_light))) { style ->
             enableLocationComponent(style)

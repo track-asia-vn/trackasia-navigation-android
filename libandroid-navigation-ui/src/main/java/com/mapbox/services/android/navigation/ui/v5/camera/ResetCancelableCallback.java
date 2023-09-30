@@ -1,8 +1,8 @@
 package com.mapbox.services.android.navigation.ui.v5.camera;
 
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
-class ResetCancelableCallback implements MapboxMap.CancelableCallback {
+class ResetCancelableCallback implements TrackasiaMap.CancelableCallback {
 
   private final NavigationCamera camera;
 

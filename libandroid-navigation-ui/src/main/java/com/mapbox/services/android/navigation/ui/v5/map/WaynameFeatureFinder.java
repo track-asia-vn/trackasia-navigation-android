@@ -3,15 +3,15 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 import android.graphics.PointF;
 
 import com.mapbox.geojson.Feature;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.maps.TrackasiaMap;
 
 import java.util.List;
 
 class WaynameFeatureFinder {
 
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
 
-  WaynameFeatureFinder(MapboxMap mapboxMap) {
+  WaynameFeatureFinder(TrackasiaMap mapboxMap) {
     this.mapboxMap = mapboxMap;
   }
 

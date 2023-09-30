@@ -6,8 +6,8 @@ import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.geometry.LatLng;
+import com.trackasia.android.maps.TrackasiaMap;
 import com.mapbox.turf.TurfConstants;
 import com.mapbox.turf.TurfMeasurement;
 import com.mapbox.turf.TurfMisc;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-class MapRouteClickListener implements MapboxMap.OnMapClickListener {
+class MapRouteClickListener implements TrackasiaMap.OnMapClickListener {
 
   private final MapRouteLine routeLine;
 

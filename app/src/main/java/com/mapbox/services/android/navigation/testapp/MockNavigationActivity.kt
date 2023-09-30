@@ -15,16 +15,16 @@ import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
-import com.mapbox.mapboxsdk.annotations.MarkerOptions
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
-import com.mapbox.mapboxsdk.maps.Style
+import com.trackasia.android.annotations.MarkerOptions
+import com.trackasia.android.camera.CameraUpdateFactory
+import com.trackasia.android.geometry.LatLng
+import com.trackasia.android.location.LocationComponent
+import com.trackasia.android.location.LocationComponentActivationOptions
+import com.trackasia.android.location.modes.CameraMode
+import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.TrackasiaMap
+import com.trackasia.android.maps.OnMapReadyCallback
+import com.trackasia.android.maps.Style
 import com.mapbox.services.android.navigation.testapp.databinding.ActivityMockNavigationBinding
 import com.mapbox.services.android.navigation.v5.instruction.Instruction
 import com.mapbox.services.android.navigation.v5.location.replay.ReplayRouteLocationEngine
@@ -45,13 +45,13 @@ import java.lang.ref.WeakReference
 class MockNavigationActivity :
     AppCompatActivity(),
     OnMapReadyCallback,
-    MapboxMap.OnMapClickListener,
+    TrackasiaMap.OnMapClickListener,
     ProgressChangeListener,
     NavigationEventListener,
     MilestoneEventListener,
     OffRouteListener {
     private val BEGIN_ROUTE_MILESTONE = 1001
-    private lateinit var mapboxMap: MapboxMap
+    private lateinit var mapboxMap: TrackasiaMap
 
     // Navigation related variables
     private var locationEngine: ReplayRouteLocationEngine = ReplayRouteLocationEngine()
@@ -140,7 +140,7 @@ class MockNavigationActivity :
         }
     }
 
-    override fun onMapReady(mapboxMap: MapboxMap) {
+    override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
         mapboxMap.setStyle(Style.Builder().fromUri(getString(R.string.map_style_light))) { style ->
             enableLocationComponent(style)

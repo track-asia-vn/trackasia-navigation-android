@@ -1,16 +1,16 @@
 package com.mapbox.services.android.navigation.ui.v5.camera;
 
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.trackasia.android.camera.CameraUpdate;
+import com.trackasia.android.maps.TrackasiaMap;
 
-class CameraOverviewCancelableCallback implements MapboxMap.CancelableCallback {
+class CameraOverviewCancelableCallback implements TrackasiaMap.CancelableCallback {
 
   private static final int OVERVIEW_UPDATE_DURATION_IN_MILLIS = 750;
 
   private CameraUpdate overviewUpdate;
-  private MapboxMap mapboxMap;
+  private TrackasiaMap mapboxMap;
 
-  CameraOverviewCancelableCallback(CameraUpdate overviewUpdate, MapboxMap mapboxMap) {
+  CameraOverviewCancelableCallback(CameraUpdate overviewUpdate, TrackasiaMap mapboxMap) {
     this.overviewUpdate = overviewUpdate;
     this.mapboxMap = mapboxMap;
   }
