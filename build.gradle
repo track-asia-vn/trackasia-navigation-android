@@ -1,7 +1,10 @@
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: file("${rootDir}/gradle/artifact-settings.gradle")
 
 buildscript {
     apply from: "${rootDir}/gradle/dependencies.gradle"
+
 
   repositories {
     google()
@@ -15,12 +18,18 @@ buildscript {
     classpath pluginDependencies.errorprone
     classpath pluginDependencies.dependencyUpdates
     classpath pluginDependencies.kotlinGradle
+    classpath pluginDependencies.gradleNexus
   }
 }
 
 task testReport(type: TestReport, group: 'Build') {
   description = 'Generates an aggregate test report'
   destinationDir = file("${buildDir}/reports/allTests")
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+  options.compilerArgs += ['-Xlint:all', '-Xlint:unchecked']
 }
 
 allprojects {
@@ -38,11 +47,44 @@ subprojects {
   apply plugin: 'net.ltgt.errorprone'
   apply from: "${rootDir}/gradle/dependencies.gradle"
 
+  idea {
+    module {
+      testOutputDir = file('build/resources/test')
+    }
+  }
+
   dependencies {
     errorprone dependenciesList.errorprone
   }
 }
 
-task clean(type: Delete) {
-  delete rootProject.buildDir
+def RELEASE_MODULES = ["libandroid-navigation", "libandroid-navigation-ui"]
+
+subprojects { subproject ->
+  tasks.withType(Jar) { jarTask ->
+    if (!jarTask.name.endsWith("sourcesJar")) {
+      jarTask.exclude("**/*.java")
+    }
+  }
+
+  if (RELEASE_MODULES.contains(subproject.name)) {
+    project.logger.info("Applying gradle publish plugin to ${subproject.name}")
+    subproject.apply from: "${rootDir}/gradle/publish.gradle"
+  }
+}
+
+apply from: "${rootDir}/gradle/publish-root.gradle"
+
+defaultTasks('clean', 'build')
+
+nexusPublishing {
+  repositories {
+    sonatype {
+      stagingProfileId = sonatypeStagingProfileId
+      username = ossrhUsername
+      password = ossrhPassword
+      nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+      snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+    }
+  }
 }

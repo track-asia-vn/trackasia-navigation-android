@@ -1,20 +1,20 @@
 # Contributing
 
-If you have a usage question pertaining to the Maplibre Navigation SDK for Android, or any of our other products, contact us through [our support page](https://www.mapbox.com/contact/).
+If you have a usage question pertaining to the Trackasia Navigation SDK for Android, or any of our other products, contact us through [our support page](https://www.mapbox.com/contact/).
 
 If you want to contribute code:
 
 1. Please familiarize yourself with the [install process](https://www.mapbox.com/android-docs/navigation/overview/#install-the-navigation-sdk).
 
-2. Ensure that existing [pull requests](https://github.com/mapbox/mapbox-navigation-android/pulls) and [issues](https://github.com/mapbox/mapbox-navigation-android/issues) don’t already cover your contribution or question.
+2. Ensure that existing [pull requests](https://github.com/mapbox/trackasia-navigation-android/pulls) and [issues](https://github.com/mapbox/trackasia-navigation-android/issues) don’t already cover your contribution or question.
 
 3. Pull requests are gladly accepted. If there are any changes that developers should be aware of, please update the [change log](CHANGELOG.md)
 
-4. Mapbox uses checkstyle to enforce good Java code standards, Make sure to read the [wiki entry](https://github.com/mapbox/mapbox-navigation-android/wiki/Setting-up-Mapbox-checkstyle) and setup. CI will fail if your PR contains any mistakes.
+4. Mapbox uses checkstyle to enforce good Java code standards, Make sure to read the [wiki entry](https://github.com/mapbox/trackasia-navigation-android/wiki/Setting-up-Mapbox-checkstyle) and setup. CI will fail if your PR contains any mistakes.
 
 ## Adding or updating a localization
 
-The Maplibre Navigation SDK for Android features several translations contributed through [Transifex](https://www.transifex.com/mapbox/mapbox-navigation-sdk-for-android/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-navigation-sdk-for-android/) so you can start translating. Note that we’re primarily interested in languages that Android supports as system languages.
+The Trackasia Navigation SDK for Android features several translations contributed through [Transifex](https://www.transifex.com/mapbox/mapbox-navigation-sdk-for-android/). If your language already has a translation, feel free to complete or proofread it. Otherwise, please [request your language](https://www.transifex.com/mapbox/mapbox-navigation-sdk-for-android/) so you can start translating. Note that we’re primarily interested in languages that Android supports as system languages.
 
 While you’re there, please consider also translating the following related projects:
 

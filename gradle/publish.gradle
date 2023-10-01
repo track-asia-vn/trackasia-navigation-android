@@ -1,0 +1,49 @@
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+apply from: file("${rootDir}/gradle/artifact-settings.gradle")
+apply from: file("${rootDir}/gradle/publish-root.gradle")
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId project.ext.trackAsiaArtifactGroupId
+                artifactId project.ext.trackAsiaArtifactId
+
+                version project.ext.versionName
+
+                project.logger.info("Publishing project with version: ${versionName}")
+
+                pom {
+                    name = project.ext.trackAsiaArtifactTitle
+                    description = project.ext.trackAsiaArtifactTitle
+                    url = project.ext.trackAsiaArtifactUrl
+                    licenses {
+                        license {
+                            name = project.ext.trackAsiaArtifactLicenseName
+                            url = project.ext.trackAsiaArtifactLicenseUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = project.ext.trackAsiaDeveloperId
+                            name = project.ext.trackAsiaDeveloperName
+                            email = 'trackasia@track-asia.com'
+                        }
+                    }
+                    scm {
+                        connection = project.ext.trackAsiaArtifactScmUrl
+                        developerConnection = project.ext.trackAsiaArtifactScmUrl
+                        url = project.ext.trackAsiaArtifactUrl
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}

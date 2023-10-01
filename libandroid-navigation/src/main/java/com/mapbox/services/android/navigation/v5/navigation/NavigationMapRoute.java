@@ -1123,7 +1123,7 @@ public class NavigationMapRoute implements MapView.OnDidFinishLoadingStyleListen
         for (RouteLeg leg : route.legs()) {
             if (leg.annotation() != null && leg.annotation().congestion() != null) {
                 for (int i = 0; i < leg.annotation().congestion().size(); i++) {
-                    // See https://github.com/mapbox/mapbox-navigation-android/issues/353
+                    // See https://github.com/mapbox/trackasia-navigation-android/issues/353
                     if (leg.annotation().congestion().size() + 1 <= lineString.coordinates().size()) {
 
                         List<Point> points = new ArrayList<>();

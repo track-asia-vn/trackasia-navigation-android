@@ -46,7 +46,7 @@ dependencies {
   // Navigation SDK
   api project(':libandroid-navigation')
 
-  // Maplibre Maps SDK
+  // Trackasia Maps SDK
   api dependenciesList.trackAsiaServices
   api dependenciesList.trackAsiaTurf
   api dependenciesList.trackAsiaAnnotations

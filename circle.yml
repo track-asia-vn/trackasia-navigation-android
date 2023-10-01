@@ -46,7 +46,7 @@ jobs:
           shell: /bin/bash -euo pipefail
           command: |
             echo "${GCLOUD_SERVICE_ACCOUNT_JSON}" > secret.json
-            gcloud auth activate-service-account --key-file secret.json --project mapbox-navigation-android
+            gcloud auth activate-service-account --key-file secret.json --project trackasia-navigation-android
             rm secret.json
 #      - run:
 #          name: Run instrumentation tests on Firebase

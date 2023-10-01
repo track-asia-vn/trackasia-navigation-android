@@ -14,6 +14,9 @@ javadoc:
 	./gradlew :libandroid-navigation:javadocrelease
 	./gradlew :libandroid-navigation-ui:javadocrelease
 
+publish-upload:
+	./gradlew publishReleasePublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+
 publish:
 	export IS_LOCAL_DEVELOPMENT=false; ./gradlew :libandroid-navigation:uploadArchives
 	export IS_LOCAL_DEVELOPMENT=false; ./gradlew :libandroid-navigation-ui:uploadArchives

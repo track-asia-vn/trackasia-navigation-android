@@ -5,9 +5,9 @@
   </a>
 </p>
 
-# Maplibre Navigation SDK for Android
+# Trackasia Navigation SDK for Android
 
-The Maplibre Navigation SDK for Android is built on a fork of the [Mapbox Navigation SDK v0.19](https://github.com/flitsmeister/flitsmeister-navigation-android/tree/v0.19.0) which is built on top of the [Mapbox Directions API](https://www.mapbox.com/directions) and contains the logic needed to get timed navigation instructions.
+The Trackasia Navigation SDK for Android is built on a fork of the [Mapbox Navigation SDK v0.19](https://github.com/flitsmeister/flitsmeister-navigation-android/tree/v0.19.0) which is built on top of the [Mapbox Directions API](https://www.mapbox.com/directions) and contains the logic needed to get timed navigation instructions.
 
 With this SDK you can implement turn-by-turn navigation in your own Android app while hosting your Map tiles and Directions API.
 
@@ -25,7 +25,7 @@ With this SDK you can implement turn-by-turn navigation in your own Android app 
 
 ## Why have we forked
 
-1. Mapbox decided to put a closed-source component to their navigation SDK and introduced a non-open-source license. Maplibre wants an open-source solution.
+1. Mapbox decided to put a closed-source component to their navigation SDK and introduced a non-open-source license. Trackasia wants an open-source solution.
 2. Mapbox decided to put telemetry in their SDK. We couldn't turn this off without adjusting the source.
 3. We want to use the SDK without paying Mapbox for each MAU and without Mapbox API keys.
 
@@ -39,7 +39,7 @@ All issues are covered with this SDK.
  with the possibility to add an interceptor to the request.
 - We changed the [locationLayerPlugin](https://github.com/mapbox/mapbox-plugins-android) to the [location component](https://docs.mapbox.com/android/api/map-sdk/8.5.0/com/mapbox/mapboxsdk/location/LocationComponent.html)
 - We updated the logic around the implementation of the locationEngine so it can be used with the new locationEngine from the [Mapbox SDK](https://github.com/mapbox/mapbox-gl-native/tree/master/platform/android).
-- We removed the telemetry class from the project. Nothing is being sent to Mapbox or Maplibre.
+- We removed the telemetry class from the project. Nothing is being sent to Mapbox or Trackasia.
 
 ## Getting Started
 
@@ -57,7 +57,7 @@ Step 1. Add it to your root `build.gradle` at the end of repositories:
 ```
 Step 2. Add the dependency
 ```
-  implementation 'com.github.trackasia:trackasia-navigation-android:2.0.0'
+  implementation 'com.github.trackasia:trackasia-navigation-android:1.0.0'
 ```
 
 ### Maven
@@ -96,7 +96,7 @@ Step 1. Add it in your `project.clj` at the end of repositories:
 ```
 Step 2. Add the dependency
 ```
-  :dependencies [[com.github.trackasia/trackasia-navigation-android "2.0.0"]]	
+  :dependencies [[com.github.trackasia/trackasia-navigation-android "1.0.0"]]	
 ```
 
 To run the [sample code](#sample-code) on a device or emulator, include your [Mapbox access token](https://www.mapbox.com/help/define-access-token/) and map tile provider URL in `developer-config.xml` found in the project. 

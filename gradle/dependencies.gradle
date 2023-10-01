@@ -5,7 +5,7 @@ ext {
             targetSdkVersion : 33,
             compileSdkVersion: 33,
             buildToolsVersion: '33.0.1',
-            kotlinVersion    : '1.7.20'
+            kotlinVersion    : '1.6.10'
     ]
 
     version = [
@@ -51,7 +51,10 @@ ext {
             gradle           : '7.3.1',
             kotlinGradle     : '1.7.20',
             dependencyGraph  : '0.3.0',
-            dependencyUpdates: '0.44.0'
+            dependencyUpdates: '0.44.0',
+            jacoco     : '0.8.6',
+            gradleNexus      : "1.1.0"
+
     ]
 
     dependenciesList = [
@@ -121,6 +124,8 @@ ext {
             errorprone          : "net.ltgt.gradle:gradle-errorprone-plugin:${pluginVersion.errorprone}",
             dependencyGraph     : "com.vanniktech:gradle-dependency-graph-generator-plugin:${pluginVersion.dependencyGraph}",
             dependencyUpdates   : "com.github.ben-manes:gradle-versions-plugin:${pluginVersion.dependencyUpdates}",
-            kotlinGradle        : "org.jetbrains.kotlin:kotlin-gradle-plugin:${androidVersions.kotlinVersion}"
+            kotlinGradle        : "org.jetbrains.kotlin:kotlin-gradle-plugin:${androidVersions.kotlinVersion}",
+            jacoco     : "org.jacoco:org.jacoco.core:${pluginVersion.jacoco}",
+            gradleNexus         : "io.github.gradle-nexus:publish-plugin:${pluginVersion.gradleNexus}"
     ]
 }
