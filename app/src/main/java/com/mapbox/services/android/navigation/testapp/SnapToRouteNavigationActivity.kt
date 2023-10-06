@@ -82,7 +82,7 @@ class SnapToRouteNavigationActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         navigationMapRoute = NavigationMapRoute(navigation, binding.mapView, mapboxMap)
-//        calculateRouteAndStartNavigation()
+        calculateRouteAndStartNavigation()
     }
 
     @SuppressWarnings("MissingPermission")

@@ -10,6 +10,16 @@ buildscript {
     google()
     mavenCentral()
     maven { url 'https://plugins.gradle.org/m2' }
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = "sk.eyJ1Ijoic2FuZ25ndXllbjI1IiwiYSI6ImNsbjhrZzNwMDBuYWEyaXA5dmd3YXRkOGoifQ.hbSoKd5hj7tAaF7Qccs6Pw"
+      }
+    }
   }
 
   dependencies {
@@ -35,7 +45,18 @@ tasks.withType(JavaCompile) {
 allprojects {
   repositories {
     google()
+    mavenCentral()
     maven { url 'https://plugins.gradle.org/m2' }
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        username = "mapbox"
+        password = "sk.eyJ1Ijoic2FuZ25ndXllbjI1IiwiYSI6ImNsbjhrZzNwMDBuYWEyaXA5dmd3YXRkOGoifQ.hbSoKd5hj7tAaF7Qccs6Pw"
+      }
+    }
   }
 
   group = GROUP

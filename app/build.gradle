@@ -46,15 +46,20 @@ android {
 
 dependencies {
     // Flitsmeister Navigation SDK
-    implementation(project(':libandroid-navigation')) {
-        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-models'
-        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-refresh-models'
-    }
-    implementation(project(':libandroid-navigation-ui')) {
-        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-models'
-        exclude group: 'io.github.track-asia', module: 'android-sdk-directions-refresh-models'
-    }
-    compileOnly dependenciesList.trackAsiaDerectionsModes
+    implementation(project(':libandroid-navigation'))
+    implementation(project(':libandroid-navigation-ui'))
+
+//    implementation('io.github.track-asia:android-sdk-directions-models:1.0.6')
+//    implementation('io.github.track-asia:android-sdk-turf:1.0.6')
+//    implementation files('../libs/libandroid-navigation-ui.aar')
+//    implementation files('../libs/libandroid-navigation.aar')
+//    implementation('com.squareup.retrofit2:retrofit:2.7.2')
+//    implementation('com.squareup.retrofit2:converter-gson:2.7.2')
+//    implementation('com.squareup.okhttp3:okhttp:3.12.7')
+//    implementation('com.squareup.okhttp3:logging-interceptor:3.12.7')
+//    implementation('com.squareup.okhttp3:mockwebserver:3.12.7')
+
+//    compileOnly dependenciesList.trackAsiaDerectionsModes
     implementation(dependenciesList.trackAsia) {
         exclude group: 'io.github.track-asia', module: 'mapbox-sdk-geojson'
         exclude group: 'io.github.track-asia', module: 'mapbox-sdk-turf'
