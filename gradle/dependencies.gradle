@@ -9,8 +9,8 @@ ext {
     ]
 
     version = [
-            trackAsiaVersion             : '1.0.16',
-            trackAsiaService             : '1.0.17',
+            trackAsiaVersion             : '1.0.18',
+            trackAsiaService             : '1.0.19',
             trackAsiaTurf                : '1.0.17',
             trackAsiaAnnotations         : '1.0.0',
             autoValue                   : '1.10.1',
@@ -62,7 +62,7 @@ ext {
             trackAsia                : "io.github.track-asia:android-sdk:${version.trackAsiaVersion}",
             trackAsiaServices        : "io.github.track-asia:android-sdk-services:${version.trackAsiaService}",
             trackAsiaDerectionsModes : "io.github.track-asia:android-sdk-directions-models:${version.trackAsiaService}",
-            trackAsiaTurf            : "io.github.track-asia:android-sdk-turf:${version.trackAsiaTurf}",
+            trackAsiaTurf            : "io.github.track-asia:android-sdk-turf:${version.trackAsiaService}",
             trackAsiaAnnotations     : "io.github.track-asia:android-plugin-annotation-v9:${version.trackAsiaAnnotations}",
 
             // AutoValue

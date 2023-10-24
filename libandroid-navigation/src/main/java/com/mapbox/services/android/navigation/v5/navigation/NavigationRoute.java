@@ -527,10 +527,6 @@ public final class NavigationRoute {
                 directionsBuilder.voiceUnits(options.voiceUnits());
             }
 
-            if (!TextUtils.isEmpty(options.user())) {
-                directionsBuilder.user(options.user());
-            }
-
             if (!TextUtils.isEmpty(options.accessToken())) {
                 directionsBuilder.accessToken(options.accessToken());
             }
