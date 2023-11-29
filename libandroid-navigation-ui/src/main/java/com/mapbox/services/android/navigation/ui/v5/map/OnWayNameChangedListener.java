@@ -3,8 +3,8 @@ package com.mapbox.services.android.navigation.ui.v5.map;
 import androidx.annotation.NonNull;
 
 /**
- * A listener that can be added to the {@link NavigationTrackasiaMap} with
- * {@link NavigationTrackasiaMap#addOnWayNameChangedListener(OnWayNameChangedListener)}.
+ * A listener that can be added to the {@link NavigationMapboxMap} with
+ * {@link NavigationMapboxMap#addOnWayNameChangedListener(OnWayNameChangedListener)}.
  * <p>
  * This listener is triggered when a new way name is found along the route.  It will be triggered
  * regardless of the map way name visibility

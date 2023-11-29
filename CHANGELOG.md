@@ -2,8 +2,22 @@
 
 Trackasia welcomes participation and contributions from everyone.
 
-### v2.1.0 - unreleased
+### unreleased
 
+- Android manifest cleanup for `libnavigation-android`
+  - Explicitly add `android.permission.ACCESS_NETWORK_STATE`, as this is needed for `com.mapbox.services.android.core.connectivity.ConnectivityReceiver`
+  - Remove Mapbox telemetry provider references (the references to code have already been removed)
+
+### v3.0.0 - November 5, 2023
+
+- BREAKING CHANGES:
+  - The navigation models DirectionsResponse and the classes used within this class have been moved the Trackasia-Java to the navigation-core. So the core does not need a dependency to the outdated Trackasia-Java dependency anymore.
+  - When you pass a DirectionsResponse or DirectionsRoute to the navigation-core, please be aware that you convert it to the local model first. If you are using Mapbox or the GraphHopper navigation endpoint, you can simply use fromJson for parsing.
+    - You could use something like this: `com.mapbox.services.android.navigation.v5.models.DirectionsResponse.fromJson(JSON_STRING_FROM_API_RESPONSE);`
+  - `RouteFetcher` has been split to `RouteFetcher` and `MapboxRouteFetcher`. The latter is in the ui module now.
+  - `NavigationRoute` has been moved to the ui module.
+  - `RouteProcessorBackgroundThread.Listener#onCheckFasterRoute` was removed as this relied on parts of the RouteFetcher that don't work anymore in the core. If you need this feature, you implement this in the UI code. 
+    - This resulted in some smaller API changes that don't require the RouteFetcher as parameter anymore.
 - Support multiple legs by snap to route engine [#77](https://github.com/track-asia/trackasia-navigation-android/pull/77)
 - Mark unused option `maximumDistanceOffRoute` as deprecated [#65](https://github.com/track-asia/trackasia-navigation-android/pull/65)
 - Fix move-away-from-maneuver logic of `OffRouteDetector` [#65](https://github.com/track-asia/trackasia-navigation-android/pull/65)
@@ -25,6 +39,9 @@ Trackasia welcomes participation and contributions from everyone.
   ```
 - Fix memory leak in Navigation Service
 - Only progress the user along the step / route if the user is close to the route (currently 1km), [#75](https://github.com/track-asia/trackasia-navigation-android/pull/75)
+- Compatibility fixes for API 34 [#90](https://github.com/track-asia/trackasia-navigation-android/pull/90)
+- When setting a new route or advancing to the next leg, we reset the `currentLegAnnotation` in `NavigationRouteProcessor`, fixes legs don't reset on rerouting.
+- Make sure step distance remaining is set correctly before first routeProgress is calculated, only calculate maneuverCompletion when routeProgress is set. This fixes annotation Index set to wrong values
 
 ### v2.0.0 - March 21, 2023
 
@@ -93,14 +110,14 @@ Below you can find the changelog from the Mapbox Navigation SDK for Android, bef
 * Update NavigationView to guard against duplicate initializations [#1247](https://github.com/mapbox/trackasia-navigation-android/pull/1247)
 * Add NavigationViewOption for default or custom SpeechPlayer [#1232](https://github.com/mapbox/trackasia-navigation-android/pull/1232)
 * Added Burmese, Finnish, Korean, Norwegian guidance
-* Add toggles in NavigationTrackasiaMap for traffic and incident data [#1226](https://github.com/mapbox/trackasia-navigation-android/pull/1226)
+* Add toggles in NavigationMapboxMap for traffic and incident data [#1226](https://github.com/mapbox/trackasia-navigation-android/pull/1226)
 * Update Map styles to V4 with incident coverage [#1234](https://github.com/mapbox/trackasia-navigation-android/pull/1234)
 * Add initialization logic for null RouteOptions [#1229](https://github.com/mapbox/trackasia-navigation-android/pull/1229)
 * add open pending intent which brings the existing task (activity) to the foreground when clicking the notification [#1221](https://github.com/mapbox/trackasia-navigation-android/pull/1221)
 
 ### v0.18.0 - August 24, 2018
 
-* Add toggles in NavigationTrackasiaMap for traffic and incident data [#1226](https://github.com/mapbox/trackasia-navigation-android/pull/1226)
+* Add toggles in NavigationMapboxMap for traffic and incident data [#1226](https://github.com/mapbox/trackasia-navigation-android/pull/1226)
 * Update Map styles to V4 with incident coverage [#1234](https://github.com/mapbox/trackasia-navigation-android/pull/1234)
 * Add initialization logic for null RouteOptions [#1229](https://github.com/mapbox/trackasia-navigation-android/pull/1229)
 * Reopen the app when when clicking the whole notification [#1221](https://github.com/mapbox/trackasia-navigation-android/pull/1221)
@@ -115,7 +132,7 @@ Below you can find the changelog from the Mapbox Navigation SDK for Android, bef
 * Notify InstructionListAdapter after animation finishes [#1143](https://github.com/mapbox/trackasia-navigation-android/pull/1143)
 * Revert MAS version from 3.4.0 to 3.3.0 [#1200](https://github.com/mapbox/trackasia-navigation-android/pull/1200)
 * Update Java SDK to 3.4.0 [#1196](https://github.com/mapbox/trackasia-navigation-android/pull/1196)
-* Allow access to NavigationTrackasiaMap and MapboxNavigation [#1179](https://github.com/mapbox/trackasia-navigation-android/pull/1179)
+* Allow access to NavigationMapboxMap and MapboxNavigation [#1179](https://github.com/mapbox/trackasia-navigation-android/pull/1179)
 * Retrieve feedback Strings from Resources [#1194](https://github.com/mapbox/trackasia-navigation-android/pull/1194)
 * Update README Snapshot [#1186](https://github.com/mapbox/trackasia-navigation-android/pull/1186)
 * Add gradle-versions-plugin to the project [#1187](https://github.com/mapbox/trackasia-navigation-android/pull/1187)

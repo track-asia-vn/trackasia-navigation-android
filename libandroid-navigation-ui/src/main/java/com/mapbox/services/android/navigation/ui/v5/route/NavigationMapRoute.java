@@ -13,7 +13,7 @@ import androidx.annotation.StyleRes;
 
 import androidx.fragment.app.Fragment;
 
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute;
 import com.trackasia.android.maps.MapView;
 import com.trackasia.android.maps.TrackasiaMap;
 import com.trackasia.android.maps.Style;

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
 import com.trackasia.android.geometry.LatLng;
 import com.trackasia.android.location.LocationComponent;
@@ -49,7 +49,7 @@ import static com.mapbox.services.android.navigation.v5.navigation.NavigationCon
  * <p>
  * These APIs include drawing a route line, camera animations, and more.
  */
-public class NavigationTrackasiaMap {
+public class NavigationMapboxMap {
 
   static final String STREETS_LAYER_ID = "streetsLayer";
   private static final String MAPBOX_STREETS_V7_URL = "mapbox.mapbox-streets-v7";
@@ -87,7 +87,7 @@ public class NavigationTrackasiaMap {
    * @param mapView   for map size and Context
    * @param mapboxMap for APIs to interact with the map
    */
-  public NavigationTrackasiaMap(@NonNull MapView mapView, @NonNull TrackasiaMap mapboxMap) {
+  public NavigationMapboxMap(@NonNull MapView mapView, @NonNull TrackasiaMap mapboxMap) {
     this.mapView = mapView;
     this.mapboxMap = mapboxMap;
     initializeLocationComponent(mapView, mapboxMap);
@@ -100,33 +100,33 @@ public class NavigationTrackasiaMap {
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(MapLayerInteractor layerInteractor) {
+  NavigationMapboxMap(MapLayerInteractor layerInteractor) {
     this.layerInteractor = layerInteractor;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(LocationComponent locationComponent) {
+  NavigationMapboxMap(LocationComponent locationComponent) {
     this.locationComponent = locationComponent;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(NavigationMapRoute mapRoute) {
+  NavigationMapboxMap(NavigationMapRoute mapRoute) {
     this.mapRoute = mapRoute;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(NavigationSymbolManager navigationSymbolManager) {
+  NavigationMapboxMap(NavigationSymbolManager navigationSymbolManager) {
     this.navigationSymbolManager = navigationSymbolManager;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate) {
+  NavigationMapboxMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate) {
     this.mapWayName = mapWayName;
     this.mapFpsDelegate = mapFpsDelegate;
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate,
+  NavigationMapboxMap(@NonNull MapWayName mapWayName, @NonNull MapFpsDelegate mapFpsDelegate,
                       NavigationMapRoute mapRoute, NavigationCamera mapCamera,
                       LocationFpsDelegate locationFpsDelegate) {
     this.mapWayName = mapWayName;
@@ -137,7 +137,7 @@ public class NavigationTrackasiaMap {
   }
 
   // Package private (no modifier) for testing purposes
-  NavigationTrackasiaMap(TrackasiaMap mapboxMap, MapLayerInteractor layerInteractor, MapPaddingAdjustor adjustor) {
+  NavigationMapboxMap(TrackasiaMap mapboxMap, MapLayerInteractor layerInteractor, MapPaddingAdjustor adjustor) {
     this.layerInteractor = layerInteractor;
     initializeWayName(mapboxMap, adjustor);
   }
@@ -150,7 +150,7 @@ public class NavigationTrackasiaMap {
    *
    * @param context  to retrieve the icon drawable from the theme
    * @param position the point at which the marker will be placed
-   * @deprecated Use {@link NavigationTrackasiaMap#addDestinationMarker(Point)} instead.
+   * @deprecated Use {@link NavigationMapboxMap#addDestinationMarker(Point)} instead.
    * A {@link Context} is no longer needed.
    */
   @Deprecated
@@ -173,7 +173,7 @@ public class NavigationTrackasiaMap {
   /**
    * Adds a custom marker to the map based on the options provided.
    * <p>
-   * Please note, the map will manage all markers added.  Calling {@link NavigationTrackasiaMap#clearMarkers()}
+   * Please note, the map will manage all markers added.  Calling {@link NavigationMapboxMap#clearMarkers()}
    * will clear all destination / custom markers that have been added to the map.
    *
    * @param options for the custom {@link com.trackasia.android.plugins.annotation.Symbol}
@@ -285,8 +285,8 @@ public class NavigationTrackasiaMap {
    * Can be used to store the current state of the map in
    * {@link FragmentActivity#onSaveInstanceState(Bundle, PersistableBundle)}.
    * <p>
-   * This method uses {@link NavigationTrackasiaMapInstanceState}, stored with the provided key.  This key
-   * can also later be used to extract the {@link NavigationTrackasiaMapInstanceState}.
+   * This method uses {@link NavigationMapboxMapInstanceState}, stored with the provided key.  This key
+   * can also later be used to extract the {@link NavigationMapboxMapInstanceState}.
    *
    * @param key      used to store the state
    * @param outState to store state variables
@@ -296,22 +296,22 @@ public class NavigationTrackasiaMap {
     settings.updateShouldUseDefaultPadding(mapPaddingAdjustor.isUsingDefault());
     settings.updateCameraTrackingMode(mapCamera.getCameraTrackingMode());
     settings.updateLocationFpsEnabled(locationFpsDelegate.isEnabled());
-    NavigationTrackasiaMapInstanceState instanceState = new NavigationTrackasiaMapInstanceState(settings);
+    NavigationMapboxMapInstanceState instanceState = new NavigationMapboxMapInstanceState(settings);
     outState.putParcelable(key, instanceState);
   }
 
   /**
-   * Can be used to restore a {@link NavigationTrackasiaMap} after it has been initialized.
+   * Can be used to restore a {@link NavigationMapboxMap} after it has been initialized.
    * <p>
-   * This cannot be called in {@link FragmentActivity#onRestoreInstanceState(Bundle)}
+   * This cannot be called in
    * because we cannot guarantee the map is re-initialized at that point.
    * <p>
-   * You can extract the {@link NavigationTrackasiaMapInstanceState} in <tt>onRestoreInstanceState</tt> and then
+   * You can extract the {@link NavigationMapboxMapInstanceState} in <tt>onRestoreInstanceState</tt> and then
    * restore the map once it's ready.
    *
    * @param instanceState to extract state variables
    */
-  public void restoreFrom(NavigationTrackasiaMapInstanceState instanceState) {
+  public void restoreFrom(NavigationMapboxMapInstanceState instanceState) {
     settings = instanceState.retrieveSettings();
     restoreMapWith(settings);
   }
@@ -458,7 +458,6 @@ public class NavigationTrackasiaMap {
   }
 
   /**
-   * Should be used in {@link FragmentActivity#onStart()} to ensure proper
    * accounting for the lifecycle.
    */
   public void onStart() {
@@ -470,7 +469,6 @@ public class NavigationTrackasiaMap {
   }
 
   /**
-   * Should be used in {@link FragmentActivity#onStop()} to ensure proper
    * accounting for the lifecycle.
    */
   public void onStop() {

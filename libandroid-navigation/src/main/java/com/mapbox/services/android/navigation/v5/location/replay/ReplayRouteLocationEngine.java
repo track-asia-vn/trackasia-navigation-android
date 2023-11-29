@@ -9,13 +9,13 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.trackasia.android.location.engine.LocationEngine;
 import com.trackasia.android.location.engine.LocationEngineCallback;
 import com.trackasia.android.location.engine.LocationEngineRequest;
 import com.trackasia.android.location.engine.LocationEngineResult;
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute;
 
 import java.util.ArrayList;
 import java.util.List;

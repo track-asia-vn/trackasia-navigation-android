@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
 import com.trackasia.android.camera.CameraPosition;
 import com.trackasia.android.camera.CameraUpdate;
@@ -437,11 +437,11 @@ public class NavigationCamera implements LifecycleObserver {
     Camera cameraEngine = navigation.getCameraEngine();
     List<Point> routePoints = cameraEngine.overview(routeInformation);
     if (!routePoints.isEmpty()) {
-      animateTrackasiaMapForRouteOverview(padding, routePoints);
+      animateMapboxMapForRouteOverview(padding, routePoints);
     }
   }
 
-  private void animateTrackasiaMapForRouteOverview(int[] padding, List<Point> routePoints) {
+  private void animateMapboxMapForRouteOverview(int[] padding, List<Point> routePoints) {
     if (routePoints.size() <= ONE_POINT) {
       return;
     }

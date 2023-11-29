@@ -3,9 +3,7 @@ package com.mapbox.services.android.navigation.testapp
 import android.location.Location
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.models.DirectionsResponse
-import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
 import com.trackasia.android.location.LocationComponent
 import com.trackasia.android.location.LocationComponentActivationOptions
@@ -16,8 +14,10 @@ import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
 import com.mapbox.services.android.navigation.testapp.databinding.ActivitySnapToRouteNavigationBinding
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationRoute
 import com.mapbox.services.android.navigation.v5.location.replay.ReplayRouteLocationEngine
 import com.mapbox.services.android.navigation.v5.milestone.*
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute
 import com.mapbox.services.android.navigation.v5.navigation.*
 import com.mapbox.services.android.navigation.v5.routeprogress.ProgressChangeListener
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress
@@ -77,7 +77,7 @@ class SnapToRouteNavigationActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.Builder().fromUri(getString(R.string.map_style_light))) { style ->
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style ->
             enableLocationComponent(style)
         }
 
@@ -124,13 +124,13 @@ class SnapToRouteNavigationActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private fun calculateRouteAndStartNavigation() {
         val navigationRouteBuilder = NavigationRoute.builder(this).apply {
-            this.accessToken(getString(R.string.mapbox_access_token))
+            this.accessToken("public")
             this.origin(Point.fromLngLat(9.7536318, 52.3717979))
             this.addWaypoint(Point.fromLngLat(9.741052, 52.360496))
             this.destination(Point.fromLngLat(9.756259, 52.342620))
-            this.voiceUnits(DirectionsCriteria.METRIC)
+            this.voiceUnits(com.mapbox.services.android.navigation.v5.models.DirectionsCriteria.METRIC)
             this.alternatives(true)
-            this.baseUrl(getString(R.string.base_url))
+            this.baseUrl("https://maps.track-asia.com/")
         }
 
         navigationRouteBuilder.build().getRoute(object : Callback<DirectionsResponse> {
@@ -141,9 +141,10 @@ class SnapToRouteNavigationActivity : AppCompatActivity(), OnMapReadyCallback,
                 Timber.d("Url: %s", (call.request() as Request).url.toString())
                 response.body()?.let { responseBody ->
                     if (responseBody.routes().isNotEmpty()) {
-                        val directionsRoute = responseBody.routes().first()
+                        val trackasiaResponse = com.mapbox.services.android.navigation.v5.models.DirectionsResponse.fromJson(responseBody.toJson());
+                        val directionsRoute = trackasiaResponse.routes().first()
                         this@SnapToRouteNavigationActivity.route = directionsRoute
-                        navigationMapRoute?.addRoutes(responseBody.routes())
+                        navigationMapRoute?.addRoutes(trackasiaResponse.routes())
 
                         startNavigation()
                     }

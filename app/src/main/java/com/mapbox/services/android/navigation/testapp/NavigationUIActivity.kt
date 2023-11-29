@@ -2,23 +2,13 @@ package com.mapbox.services.android.navigation.testapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.models.DirectionsResponse
-import com.mapbox.api.directions.v5.models.DirectionsRoute
-import com.mapbox.api.directions.v5.models.RouteOptions
 import com.mapbox.geojson.Point
-import com.mapbox.services.android.navigation.testapp.databinding.ActivityNavigationUiBinding
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
-import com.mapbox.services.android.navigation.v5.milestone.*
-import com.mapbox.services.android.navigation.v5.navigation.*
-import com.mapbox.turf.TurfConstants
-import com.mapbox.turf.TurfMeasurement
 import com.trackasia.android.annotations.MarkerOptions
 import com.trackasia.android.camera.CameraPosition
 import com.trackasia.android.geometry.LatLng
@@ -26,15 +16,23 @@ import com.trackasia.android.location.LocationComponent
 import com.trackasia.android.location.LocationComponentActivationOptions
 import com.trackasia.android.location.modes.CameraMode
 import com.trackasia.android.location.modes.RenderMode
+import com.trackasia.android.maps.TrackasiaMap
 import com.trackasia.android.maps.OnMapReadyCallback
 import com.trackasia.android.maps.Style
-import com.trackasia.android.maps.TrackasiaMap
+import com.mapbox.services.android.navigation.testapp.databinding.ActivityNavigationUiBinding
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationRoute
+import com.mapbox.services.android.navigation.v5.milestone.*
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute
+import com.mapbox.services.android.navigation.v5.navigation.*
+import com.mapbox.turf.TurfConstants
+import com.mapbox.turf.TurfMeasurement
 import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
-import java.util.Locale
 
 class NavigationUIActivity :
     AppCompatActivity(),
@@ -56,6 +54,11 @@ class NavigationUIActivity :
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
         binding = ActivityNavigationUiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.mapView.apply {
@@ -70,10 +73,7 @@ class NavigationUIActivity :
                 val options = NavigationLauncherOptions.builder()
                     .directionsRoute(route)
                     .shouldSimulateRoute(simulateRoute)
-                    .initialMapCameraPosition(
-                        CameraPosition.Builder()
-                            .target(LatLng(userLocation.latitude, userLocation.longitude)).build()
-                    )
+                    .initialMapCameraPosition(CameraPosition.Builder().target(LatLng(userLocation.latitude, userLocation.longitude)).build())
                     .lightThemeResId(R.style.TestNavigationViewLight)
                     .darkThemeResId(R.style.TestNavigationViewDark)
                     .build()
@@ -103,7 +103,7 @@ class NavigationUIActivity :
 
     override fun onMapReady(mapboxMap: TrackasiaMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.Builder().fromUri(getString(R.string.map_style_light))) { style ->
+        mapboxMap.setStyle("https://tiles.track-asia.com/tiles/v1/style-streets.json?key=public") { style ->
             enableLocationComponent(style)
         }
 
@@ -157,9 +157,7 @@ class NavigationUIActivity :
             mapboxMap.addMarker(MarkerOptions().position(point))
             binding.clearPoints.visibility = View.VISIBLE
         }
-        if(waypoint != null && destination != null) {
-            calculateRoute()
-        }
+        calculateRoute()
         return true
     }
 
@@ -167,7 +165,6 @@ class NavigationUIActivity :
         binding.startRouteLayout.visibility = View.GONE
         val userLocation = mapboxMap.locationComponent.lastKnownLocation
         val destination = destination
-        val waypoint = waypoint
         if (userLocation == null) {
             Timber.d("calculateRoute: User location is null, therefore, origin can't be set.")
             return
@@ -183,17 +180,16 @@ class NavigationUIActivity :
             return
         }
 
-        val coordinates: MutableList<Point> = ArrayList()
-        coordinates.add(origin)
-
         val navigationRouteBuilder = NavigationRoute.builder(this).apply {
             this.accessToken("public")
-            waypoint?.let { this.origin(it) }
+            this.origin(origin)
             this.destination(destination)
             this.voiceUnits(DirectionsCriteria.METRIC)
             this.alternatives(true)
-            this.profile("car")
-            this.baseUrl(getString(R.string.base_url))
+            // If you are using this with the GraphHopper Directions API, you need to uncomment user and profile here.
+            //this.user("gh")
+            //this.profile("car")
+            this.baseUrl("https://maps.track-asia.com/")
         }
 
         navigationRouteBuilder.build().getRoute(object : Callback<DirectionsResponse> {
@@ -201,12 +197,12 @@ class NavigationUIActivity :
                 call: Call<DirectionsResponse>,
                 response: Response<DirectionsResponse>,
             ) {
-                Log.d("Url: %s", (call.request() as Request).url.toString())
+                Timber.d("Url: %s", (call.request() as Request).url.toString())
                 response.body()?.let { response ->
                     if (response.routes().isNotEmpty()) {
-                        val directionsRoute = response.routes().first()
-                        this@NavigationUIActivity.route = directionsRoute
-                        navigationMapRoute?.addRoutes(response.routes())
+                        val trackasiaResponse = com.mapbox.services.android.navigation.v5.models.DirectionsResponse.fromJson(response.toJson());
+                        this@NavigationUIActivity.route = trackasiaResponse.routes().first()
+                        navigationMapRoute?.addRoutes(trackasiaResponse.routes())
                         binding.startRouteLayout.visibility = View.VISIBLE
                     }
                 }

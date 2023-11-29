@@ -6,7 +6,7 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
-import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.services.android.navigation.v5.models.DirectionsRoute;
 import com.trackasia.android.location.engine.LocationEngine;
 import com.trackasia.android.location.engine.LocationEngineCallback;
 import com.trackasia.android.location.engine.LocationEngineRequest;

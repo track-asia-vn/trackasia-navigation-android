@@ -51,6 +51,7 @@ dependencies {
 
     // Support
     implementation dependenciesList.androidxAppcompat
+    implementation dependenciesList.supportAnnotation
 
     // Logging
     implementation dependenciesList.timber
@@ -58,6 +59,8 @@ dependencies {
     // AutoValues
     annotationProcessor dependenciesList.autoValue
     compileOnly dependenciesList.autoValueAnnotations
+    compileOnly dependenciesList.autoValueGson
+    annotationProcessor(dependenciesList.autoValueGson)
 
     // Unit testing
     testImplementation dependenciesList.junit

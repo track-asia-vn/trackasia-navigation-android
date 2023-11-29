@@ -1,20 +1,47 @@
-
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply from: '../gradle/artifact-settings.gradle'
+apply from: '../gradle/publish-root.gradle'
+apply plugin: 'com.android.library'
 
-apply from: file("${rootDir}/gradle/artifact-settings.gradle")
-apply from: file("${rootDir}/gradle/publish-root.gradle")
+version = project.ext.versionName
+group = project.ext.trackAsiaArtifactGroupId
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.sourceFiles
+    classpath = files(android.bootClasspath)
+    failOnError = false
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'dokka'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId project.ext.trackAsiaArtifactGroupId
+
+                groupId this.group
                 artifactId project.ext.trackAsiaArtifactId
 
-                version project.ext.versionName
+                from components.release
 
-                project.logger.info("Publishing project with version: ${versionName}")
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
+
+                version this.version
 
                 pom {
                     name = project.ext.trackAsiaArtifactTitle
@@ -40,6 +67,17 @@ afterEvaluate {
                     }
                 }
             }
+        }
+    }
+}
+
+
+// See: https://github.com/chrisbanes/gradle-mvn-push/issues/43#issuecomment-84140513
+afterEvaluate { project ->
+    android.libraryVariants.all { variant ->
+        tasks.androidJavadocs.doFirst {
+            classpath += files(variant.javaCompile.classpath.files)
+            classpath += configurations.javadocDeps
         }
     }
 }

@@ -14,7 +14,7 @@ import static com.trackasia.android.style.layers.Property.VISIBLE;
 import static com.trackasia.android.style.layers.PropertyFactory.lineColor;
 import static com.trackasia.android.style.layers.PropertyFactory.lineWidth;
 import static com.trackasia.android.style.layers.PropertyFactory.visibility;
-import static com.mapbox.services.android.navigation.ui.v5.map.NavigationTrackasiaMap.STREETS_LAYER_ID;
+import static com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap.STREETS_LAYER_ID;
 
 class MapLayerInteractor {
 
