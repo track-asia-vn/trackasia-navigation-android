@@ -9,8 +9,8 @@ ext {
     ]
 
     version = [
-            trackAsiaVersion             : '1.0.18',
-            trackAsiaService             : '1.0.19',
+            trackAsiaVersion             : '1.0.20',
+            trackAsiaService             : '1.0.20',
             trackAsiaTurf                : '1.0.17',
             trackAsiaAnnotations         : '1.0.0',
             annotation                  : '1.7.0',

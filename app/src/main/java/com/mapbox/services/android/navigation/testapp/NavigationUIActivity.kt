@@ -184,11 +184,9 @@ class NavigationUIActivity :
             this.accessToken("public")
             this.origin(origin)
             this.destination(destination)
-            this.voiceUnits(DirectionsCriteria.METRIC)
-            this.alternatives(true)
-            // If you are using this with the GraphHopper Directions API, you need to uncomment user and profile here.
-            //this.user("gh")
-            //this.profile("car")
+//            this.voiceUnits(DirectionsCriteria.METRIC)
+//            this.alternatives(true)
+            this.profile("car")
             this.baseUrl("https://maps.track-asia.com/")
         }
 

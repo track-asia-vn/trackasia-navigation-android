@@ -1,17 +1,17 @@
 ext {
     trackAsiaArtifactGroupId = 'io.github.track-asia'
     trackAsiaArtifactId = project.hasProperty('POM_ARTIFACT_ID') ? project.property('POM_ARTIFACT_ID') : System.getenv('POM_ARTIFACT_ID')
-    trackAsiaArtifactTitle = 'Trackasia Android Java Utilities'
+    trackAsiaArtifactTitle = 'Trackasia Navigation Android Utilities'
     trackAsiaArtifactDescription = project.hasProperty('POM_DESCRIPTION') ? project.property('POM_DESCRIPTION') : System.getenv('POM_DESCRIPTION')
     trackAsiaDeveloperName = 'Trackasia'
     trackAsiaDeveloperEmail = 'trackasia@track-asia.com'
     trackAsiaDeveloperOrganization = 'Trackasia'
     trackAsiaDeveloperOrganizationUrl = 'http://www.track-asia.com'
     trackAsiaDeveloperId = 'trackasia'
-    trackAsiaArtifactUrl = 'https://github.com/track-asia/trackasia-java'
-    trackAsiaArtifactVcsUrl = 'https://github.com/track-asia/trackasia-java.git'
-    trackAsiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-java.git'
+    trackAsiaArtifactUrl = 'https://github.com/track-asia/trackasia-navigation-android'
+    trackAsiaArtifactVcsUrl = 'https://github.com/track-asia/trackasia-navigation-android.git'
+    trackAsiaArtifactScmUrl = 'scm:git@github.com:track-asia/trackasia-navigation-android.git'
     trackAsiaArtifactLicenseName = 'The Apache Software License, Version 2.0'
     trackAsiaArtifactLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    versionName = "1.0.7"
+    versionName = "1.0.9"
 }
